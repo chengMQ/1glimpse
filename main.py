@@ -49,8 +49,8 @@ def withpics_to_file(ss):
     ss = [run_havepic(i) for i in ss]
     with open('./pages/%s.html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<hr>采集时间：%s<hr>'%(titles,datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + '<br>'.join(
-            ss)
+        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<hr>' % titles + '<br>'.join(
+            ss) + '<hr>采集时间：%s' % datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         f.write(scode)
 
 # 以下为无图版
@@ -90,8 +90,8 @@ def withoutpic_to_file(ss):
     ss = [run_nopic(i) for i in ss]
     with open('./pages/%s[no_cover].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<hr>采集时间：%s<hr>'%(titles,datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + '<br>'.join(
-            ss)
+        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<hr>' % titles + '<br>'.join(
+            ss) + '<hr>采集时间：%s' % datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         f.write(scode)
 
 
@@ -99,7 +99,7 @@ def refresh_index():
     def list2index(each_item):
         return '<li><a href="/pages/%s.html">%s</a></li>' % (each_item, each_item)
     list1 = ''.join([list2index(i.replace('.html', '')) for i in sorted(
-            os.listdir('.\\pages'), reverse=True) if i.endswith('html')])
+        os.listdir('.\\pages'), reverse=True) if i.endswith('html')])
     str1 = '<!--网址列表--start--><ul>%s</ul><!--网址列表--end-->' % list1
     # print(str1)
     with open('index.html', 'r', encoding='utf-8') as f:
@@ -116,7 +116,7 @@ if __name__ == '__main__':
     ss = pp.map(lambda x: x(), choose_func)
     pp.close()
     pp.join()
-    titles='、'.join(['[%s]'%i[0] for i in ss])
+    titles = '、'.join(['[%s]' % i[0] for i in ss])
     withpics_to_file(ss)
     withoutpic_to_file(ss)
     refresh_index()
