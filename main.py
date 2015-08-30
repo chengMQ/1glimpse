@@ -49,7 +49,7 @@ def withpics_to_file(ss):
     ss = [run_havepic(i) for i in ss]
     with open('./pages/%s.html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s'%titles + '<br>'.join(
+        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<hr>采集时间：%s<hr>'%(titles,datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + '<br>'.join(
             ss)
         f.write(scode)
 
@@ -90,7 +90,7 @@ def withoutpic_to_file(ss):
     ss = [run_nopic(i) for i in ss]
     with open('./pages/%s[no_cover].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s'%titles + '<br>'.join(
+        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<hr>采集时间：%s<hr>'%(titles,datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')) + '<br>'.join(
             ss)
         f.write(scode)
 
@@ -120,4 +120,3 @@ if __name__ == '__main__':
     withpics_to_file(ss)
     withoutpic_to_file(ss)
     refresh_index()
-
