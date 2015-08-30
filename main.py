@@ -44,4 +44,4 @@ if __name__ == '__main__':
         
         scode='<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style>' + '<br>'.join(ss)
         f.write(scode)
-        webbrowser.open('1.html')
+        webbrowser.open('/pages/%s.html'%datetime.datetime.now().strftime('%Y-%m-%d'))
