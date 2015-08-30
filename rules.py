@@ -7,9 +7,10 @@ from html import unescape
 
 
 def iplaysoft_pyld():
-    # 异次元软件世界-RSS-前八个
+    # 异次元软件世界-RSS-前12个
     my_title = '异次元软件世界（RSS）'
-    column = 3
+    column = 6
+    iscover = 0
     try:
         r = requests.get('http://feed.iplaysoft.com/')
         ss = unescape(r.text)
@@ -20,21 +21,24 @@ def iplaysoft_pyld():
         desc = [i.text_content()
                 for i in xpath('//item/description/div[1]/p[1]')]
         urls = xpath('//item/description/p[1]/a/@href')
-        result = list(zip(covers, titles, urls, desc))[:9]
+        result = list(zip(covers, titles, urls, desc))[:12]
     except:
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
-    return [my_title, result, column]
+    print(my_title,'finished')
+    return [my_title, result, column, iscover]
 
 
 def tuicool_pyld():
-    # 当天的推酷-文章，早上9点以前则将前一天的也算上
+    # 当天的推酷-文章，早上5点以前则将前一天的也算上
     my_title = '推酷（%s）' % datetime.datetime.today().strftime('%Y-%m-%d')
     column = 6
+    iscover = 1
     try:
         s = requests.Session()
         today1 = datetime.datetime.today().strftime('%m-%d')
-        if datetime.datetime.today().hour < 9:
+        # 这个if用来决定抓哪天的
+        if datetime.datetime.today().hour < 5:
             today1 = '%s-%s' % (datetime.datetime.today().strftime('%m'),
                                 (datetime.datetime.today().day - 1))
         pagenum = 0
@@ -62,7 +66,8 @@ def tuicool_pyld():
         # print('推酷——finished……')
     except:
         aa = [['error'] * 4]
-    return [my_title, aa, column]
+    print(my_title,'finished')
+    return [my_title, aa, column, iscover]
 
 
 def function():
