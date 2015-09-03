@@ -5,10 +5,12 @@ import datetime
 import time
 from html import unescape
 
+thisday = datetime.datetime.today().strftime('%Y-%m-%d')
+
 
 def iplaysoft_pyld():
-    # 异次元软件世界-RSS-前12个
-    my_title = '异次元软件世界（RSS）'
+    '''异次元软件世界（RSS）'''
+    my_title = iplaysoft_pyld.__doc__
     column = 6
     iscover = 0
     try:
@@ -25,22 +27,22 @@ def iplaysoft_pyld():
     except:
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
-    print(my_title,'finished')
+    print(my_title, 'finished')
     return [my_title, result, column, iscover]
 
 
 def tuicool_pyld():
-    # 当天的推酷-文章，早上5点以前则将前一天的也算上
-    my_title = '推酷（%s）' % datetime.datetime.today().strftime('%Y-%m-%d')
+    '''推酷-文章'''
+    my_title = tuicool_pyld.__doc__
     column = 6
     iscover = 1
     try:
         s = requests.Session()
         today1 = datetime.datetime.today().strftime('%m-%d')
         # 这个if用来决定抓哪天的
-        if datetime.datetime.today().hour < 5:
-            today1 = '%s-%s' % (datetime.datetime.today().strftime('%m'),
-                                (datetime.datetime.today().day - 1))
+        # if datetime.datetime.today().hour < 5:
+        #     today1 = '%s-%s' % (datetime.datetime.today().strftime('%m'),
+        #                         (datetime.datetime.today().day - 1))
         pagenum = 0
         aa = []
         while 1:
@@ -62,11 +64,17 @@ def tuicool_pyld():
             titles = xpath('//a[@class="article-list-title"]/text()')
             desc = [i.strip()
                     for i in xpath('//div[@class="article_cut"]/text()')]
+            ptime = xpath('//div[@class="tip meta-tip"]')
+            ptime = ['<div style="font-size:15px;" ><br>%s</div>'%re.sub('\s{2,}', '&nbsp&nbsp&nbsp&nbsp', i.text_content().replace('稍后阅读', '').strip())
+                     for i in ptime]
+            # print(ptime)
+            desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
             aa += list(zip(covers, titles, urls, desc))
         # print('推酷——finished……')
-    except:
+    except Exception as e:
+        print(e)
         aa = [['error'] * 4]
-    print(my_title,'finished')
+    print(my_title, 'finished')
     return [my_title, aa, column, iscover]
 
 
