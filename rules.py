@@ -23,6 +23,9 @@ def iplaysoft_pyld():
         desc = [i.text_content()
                 for i in xpath('//item/description/div[1]/p[1]')]
         urls = xpath('//item/description/p[1]/a/@href')
+        ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
+            '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
+        desc = [''.join(i) for i in list(zip(desc, ptime))]
         result = list(zip(covers, titles, urls, desc))[:12]
     except:
         result = [['error'] * 4]
@@ -65,7 +68,7 @@ def tuicool_pyld():
             desc = [i.strip()
                     for i in xpath('//div[@class="article_cut"]/text()')]
             ptime = xpath('//div[@class="tip meta-tip"]')
-            ptime = ['<div style="font-size:15px;" ><br>%s</div>' % re.sub('\s{2,}', '&nbsp&nbsp&nbsp&nbsp', i.text_content().replace('稍后阅读', '').strip())
+            ptime = ['<div style="font-size:15px;" align="right"><br>%s</div>' % re.sub('\s{2,}', '&nbsp&nbsp&nbsp&nbsp', i.text_content().replace('稍后阅读', '').strip())
                      for i in ptime]
             # print(ptime)
             desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
