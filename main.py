@@ -39,7 +39,7 @@ def withpics_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<div align="right">采集时间：%s</div><hr>' % (titles,this_time) + '<br>'.join(
+        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><div align="right">采集时间：%s</div><hr>' % (this_time) + '<br>'.join(
             ss)
         f.write(scode)
 
@@ -50,7 +50,7 @@ def withoutpic_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-no].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<div align="right">采集时间：%s</div><hr>' % (titles,this_time) + '<br>'.join(
+        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><div align="right">采集时间：%s</div><hr>' % (this_time) + '<br>'.join(
             ss)
         f.write(scode)
 
@@ -58,12 +58,12 @@ def withoutpic_to_file(ss):
 def refresh_index():
     # 刷新index.html
     def list2index(each_item):
-        return '<li><a href="/pages/%s.html">%s</a></li>' % (each_item, each_item + 'blabla')
+        return '<li><a target="_blank" style="font-size:18px;" href="/pages/%s.html">%s</a></li>' % (each_item, each_item + 'blabla')
     list0 = [list2index(i.replace('.html', '')) for i in sorted(
         os.listdir('.\\pages'), reverse=True) if i.endswith('html')]
     list1=''.join([i.replace('[cover-yes]blabla','') for i in list0 if '[cover-yes]' in i])
     list2=''.join([i.replace('[cover-no]blabla','') for i in list0 if '[cover-no]' in i])
-    str1 = '<!--网址列表--start--><p style="font-size:18px;">最后更新：{}</p><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td><strong>有图版</strong></td><td><strong>无图版</strong></td></tr><tr><td>{}</td><td>{}</td></tr></tbody></table><!--网址列表--end-->'.format(this_time,list1,list2)
+    str1 = '<!--网址列表--start--><p style="font-size:18px;">最后更新：{}</p><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td><strong style="font-size:55px;">有图版</strong></td><td><strong style="font-size:55px;">无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table><!--网址列表--end-->'.format(this_time,titles,list1,list2)
     # print(str1)
     with open('index.html', 'r', encoding='utf-8') as f:
         scode = f.read()
