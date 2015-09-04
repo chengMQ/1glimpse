@@ -1,4 +1,5 @@
 ﻿# 1glimpse
+http://clericpy.github.io/
 
 ---
 
@@ -7,11 +8,6 @@
 ###待完成功能
 >以一个既定轮子为主程序（main.py），以update.py更新规则与重新选择频道。
 下一步借助抽取正文模块或手动抽取实现选中文章来开启一览模式，即所有选中文章在同一页中展示，并给出原始链接。
-
-###已完成网站
-
->推酷
-异次元软件世界
 
 
 ### 写在前面
@@ -42,29 +38,29 @@
 ------
 
 ### 待录入应用/网址列表：
-* 绿色下载吧文章、下载http://www.xiazaiba.com/ 
-* 小众软件http://www.appinn.com/ http://www.appinn.com/tag/selected/ 
-* 80s电影http://www.k5.cc/ 
-* 电影天堂http://www.dytt8.net/ 
-* 果壳精选APP
-* 慕课网课程http://www.imooc.com/course/list  、文章http://www.imooc.com/article 
-* 异次元http://www.iplaysoft.com/ 
+* 绿色下载吧 文章、下载 http://www.xiazaiba.com/ 
+* 小众软件 http://www.appinn.com/ http://www.appinn.com/tag/selected/ 
+* 80s电影 http://www.k5.cc/ 
+* 电影天堂 http://www.dytt8.net/ 
+* 果壳精选 APP
+* 慕课网课程 http://www.imooc.com/course/list  、文章 http://www.imooc.com/article 
+* 异次元软件 http://www.iplaysoft.com/ √
 * 软件小品http://www.appcheers.com/ 
-* 豆瓣一刻http://moment.douban.com/app/ 或APP
-* 推酷http://www.tuicool.com/ah/0/0?lang=1 
-* 虎嗅http://www.huxiu.com/ 
-* 一点资讯http://www.yidianzixun.com/ 
-* OSCHINAhttp://www.oschina.net/translate/tag/python   http://www.oschina.net/news  
-* 蟒周刊http://weekly.pychina.org/  
-* 大眼仔http://www.dayanzai.me/ 
-* Python日报http://py.memect.com/ 
-* 果壳http://www.guokr.com/ 
-* 脚本之家http://www.jb51.net/list/list_97_1.htm 
+* 豆瓣一刻 http://moment.douban.com/app/ 或APP
+* 推酷 http://www.tuicool.com/ah/0/0?lang=1 √
+* 虎嗅 http://www.huxiu.com/ 
+* 一点资讯 http://www.yidianzixun.com/ 
+* OSCHINA http://www.oschina.net/translate/tag/python   http://www.oschina.net/news  
+* 蟒周刊 http://weekly.pychina.org/  
+* 大眼仔 http://www.dayanzai.me/ 
+* Python日报 http://py.memect.com/ 
+* 果壳 http://www.guokr.com/ 
+* 脚本之家 http://www.jb51.net/list/list_97_1.htm 
 * 博客园 http://www.cnblogs.com/cate/python/  
-* 电脑报APP和http://www.icpcw.com/Newspaper/Hot 
+* 电脑报 APP 和 http://www.icpcw.com/Newspaper/Hot 
 * IT之家 http://www.ithome.com/ 
-* 快递加单号http://www.kiees.cn/ 
-* 今日头条http://toutiao.com/ 
+* 快递加单号 http://www.kiees.cn/ 
+* 今日头条 http://toutiao.com/ 
 * 知乎日报  http://daily.zhihu.com/ 
 
 

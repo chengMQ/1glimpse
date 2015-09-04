@@ -61,7 +61,7 @@ def refresh_index():
         os.listdir('.\\pages'), reverse=True) if i.endswith('html')]
     list1=''.join([i.replace('[cover-yes]blabla',' ') for i in list0 if '[cover-yes]' in i])
     list2=''.join([i.replace('[cover-no]blabla',' ') for i in list0 if '[cover-no]' in i])
-    str1 = '<!--网址列表--start--><table style="width:80%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td><strong>有图版</strong></td><td><strong>无图版</strong></td></tr><tr><td>{}</td><td>{}</td></tr></tbody></table><!--网址列表--end-->'.format(list1,list2)
+    str1 = '<!--网址列表--start--><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td><strong>有图版</strong></td><td><strong>无图版</strong></td></tr><tr><td>{}</td><td>{}</td></tr></tbody></table><!--网址列表--end-->'.format(list1,list2)
     # print(str1)
     with open('index.html', 'r', encoding='utf-8') as f:
         scode = f.read()
