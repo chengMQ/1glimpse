@@ -65,7 +65,7 @@ def tuicool_pyld():
             desc = [i.strip()
                     for i in xpath('//div[@class="article_cut"]/text()')]
             ptime = xpath('//div[@class="tip meta-tip"]')
-            ptime = ['<div style="font-size:15px;" ><br>%s</div>'%re.sub('\s{2,}', '&nbsp&nbsp&nbsp&nbsp', i.text_content().replace('稍后阅读', '').strip())
+            ptime = ['<div style="font-size:15px;" ><br>%s</div>' % re.sub('\s{2,}', '&nbsp&nbsp&nbsp&nbsp', i.text_content().replace('稍后阅读', '').strip())
                      for i in ptime]
             # print(ptime)
             desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
