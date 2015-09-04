@@ -37,10 +37,10 @@ def list2html(table_html):
 def withpics_to_file(ss):
     # 传入多个feed的列表，输出为文件
     ss = [list2html(i) for i in ss]
-    with open('./pages/%s[cover-yes].html' % datetime.datetime.now().strftime('%Y-%m-%d__%H_%M_%S'), 'w', encoding='utf-8') as f:
+    with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<hr>' % titles + '<br>'.join(
-            ss) + '<hr>采集时间：%s' % this_time
+        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<div align="right">采集时间：%s</div><hr>' % (titles,this_time) + '<br>'.join(
+            ss)
         f.write(scode)
 
 
@@ -48,22 +48,22 @@ def withoutpic_to_file(ss):
     for i in ss:
         i[-1]=0
     ss = [list2html(i) for i in ss]
-    with open('./pages/%s[cover-no].html' % datetime.datetime.now().strftime('%Y-%m-%d__%H_%M_%S'), 'w', encoding='utf-8') as f:
+    with open('./pages/%s[cover-no].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<hr>' % titles + '<br>'.join(
-            ss) + '<hr>采集时间：%s' % this_time
+        scode = '<meta charset="utf-8"><style> body{background-color:#999999} </style><style>A {text-decoration: NONE} </style><strong>当前订阅列表：</strong>%s<div align="right">采集时间：%s</div><hr>' % (titles,this_time) + '<br>'.join(
+            ss)
         f.write(scode)
 
 
 def refresh_index():
     # 刷新index.html
     def list2index(each_item):
-        return '<li><a href="/pages/%s.html">%s</a></li>' % (each_item, each_item.replace('__',' ').replace('_',':') +'blabla')
+        return '<li><a href="/pages/%s.html">%s</a></li>' % (each_item, each_item + 'blabla')
     list0 = [list2index(i.replace('.html', '')) for i in sorted(
         os.listdir('.\\pages'), reverse=True) if i.endswith('html')]
-    list1=''.join([i.replace('[cover-yes]blabla',' ') for i in list0 if '[cover-yes]' in i])
-    list2=''.join([i.replace('[cover-no]blabla',' ') for i in list0 if '[cover-no]' in i])
-    str1 = '<!--网址列表--start--><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td><strong>有图版</strong></td><td><strong>无图版</strong></td></tr><tr><td>{}</td><td>{}</td></tr></tbody></table><!--网址列表--end-->'.format(list1,list2)
+    list1=''.join([i.replace('[cover-yes]blabla','') for i in list0 if '[cover-yes]' in i])
+    list2=''.join([i.replace('[cover-no]blabla','') for i in list0 if '[cover-no]' in i])
+    str1 = '<!--网址列表--start--><p style="font-size:18px;">最后更新：{}</p><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td><strong>有图版</strong></td><td><strong>无图版</strong></td></tr><tr><td>{}</td><td>{}</td></tr></tbody></table><!--网址列表--end-->'.format(this_time,list1,list2)
     # print(str1)
     with open('index.html', 'r', encoding='utf-8') as f:
         scode = f.read()
