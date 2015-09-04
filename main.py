@@ -35,7 +35,7 @@ def list2html(table_html):
 
 
 def withpics_to_file(ss):
-    # 传入feed的列表，输出为文件
+    # 传入多个feed的列表，输出为文件
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
@@ -45,6 +45,8 @@ def withpics_to_file(ss):
 
 
 def withoutpic_to_file(ss):
+    for i in ss:
+        i[-1]=0
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-no].html' % this_day, 'w', encoding='utf-8') as f:
 
