@@ -26,7 +26,7 @@ def iplaysoft_pyld():
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         desc = [''.join(i) for i in list(zip(desc, ptime))]
-        result = list(zip(covers, titles, urls, desc))[:12]
+        result = list(zip(covers, titles, urls, desc))[:6]
     except:
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
@@ -81,9 +81,30 @@ def tuicool_pyld():
     return [my_title, aa, column, iscover]
 
 
-def function():
-    pass
-
+def func_modle():
+    '''标题'''
+    my_title = func_modle.__doc__
+    column = 6
+    iscover = 0
+    try:
+        r = requests.get('http://feed.iplaysoft.com/')
+        ss = unescape(r.text)
+        xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
+        titles = [i.replace('[来自异次元]', '').strip()
+                  for i in xpath('//item/title/text()')]
+        covers = xpath('//item/description/p[1]/a/img/@src')
+        desc = [i.text_content()
+                for i in xpath('//item/description/div[1]/p[1]')]
+        urls = xpath('//item/description/p[1]/a/@href')
+        ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
+            '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
+        desc = [''.join(i) for i in list(zip(desc, ptime))]
+        result = list(zip(covers, titles, urls, desc))[:6]
+    except:
+        result = [['error'] * 4]
+        # print('异次元软件世界——finished……')
+    print(my_title, 'finished')
+    return [my_title, result, column, iscover]
 
 if __name__ == '__main__':
     print('请使用其他模块进行调用')
