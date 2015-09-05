@@ -65,7 +65,7 @@ def refresh_index():
         os.listdir('.\\pages'), reverse=True) if i.endswith('html')]
     list1=''.join([i.replace('[cover-yes]blabla','') for i in list0 if '[cover-yes]' in i])
     list2=''.join([i.replace('[cover-no]blabla','') for i in list0 if '[cover-no]' in i])
-    str1 = '<!--网址列表--start--><p style="font-size:18px;">最后更新：{}</p><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td><strong style="font-size:55px;">有图版</strong></td><td><strong style="font-size:55px;">无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table><!--网址列表--end-->'.format(this_time,titles,list1,list2)
+    str1 = '<!--网址列表--start--><p style="font-size:18px;">最后更新：{}</p><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td><strong style="font-size:35px;">有图版</strong></td><td><strong style="font-size:35px;">无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table><!--网址列表--end-->'.format(this_time,titles,list1,list2)
     # print(str1)
     with open('index.html', 'r', encoding='utf-8') as f:
         scode = f.read()
