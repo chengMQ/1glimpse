@@ -5,7 +5,8 @@ import datetime
 import time
 from html import unescape
 
-thisday = datetime.datetime.today().strftime('%Y-%m-%d')
+thisday = datetime.datetime.today()
+
 
 def huxiu_pyld():
     '''虎嗅网-看点'''
@@ -14,7 +15,7 @@ def huxiu_pyld():
     iscover = 1
     try:
         s = requests.Session()
-        today1 = datetime.datetime.today().strftime('%Y-%m-%d')
+        today1 = thisday.strftime('%Y-%m-%d')
         # 这个if用来决定抓哪天的
         # if datetime.datetime.today().hour < 5:
         #     today1 = '%s-%s' % (datetime.datetime.today().strftime('%m'),
@@ -25,13 +26,16 @@ def huxiu_pyld():
             r = s.get('http://www.huxiu.com/focus/%s.html' % pagenum)
             scode = r.content.decode('utf-8')
             xpath = fromstring(scode).xpath
-            dates=[re.sub(' .*','',i) for i in xpath('//time[@class="time"]/text()')]
+            dates = [re.sub(' .*', '', i)
+                     for i in xpath('//time[@class="time"]/text()')]
             if today1 not in dates:
                 break
             pagenum += 1
-            urls = ['http://www.tuicool.com/articles/' + i for i in xpath('//div[@class="clearfix shadow-box-noshadow mod-info-flow"]//h3/a/@href')]
+            urls = ['http://www.tuicool.com/articles/' + i for i in xpath(
+                '//div[@class="clearfix shadow-box-noshadow mod-info-flow"]//h3/a/@href')]
             covers = xpath('//div[@class="clearfix mod-b mod-art"]/a/img/@src')
-            titles = xpath('//div[@class="clearfix shadow-box-noshadow mod-info-flow"]//h3/a/text()')
+            titles = xpath(
+                '//div[@class="clearfix shadow-box-noshadow mod-info-flow"]//h3/a/text()')
             desc = [i.strip()
                     for i in xpath('//div[@class="mob-sub"]/text()')]
             ptime = xpath('//div[@class="mob-author"]')
@@ -47,6 +51,29 @@ def huxiu_pyld():
     print(my_title, 'finished')
     return [my_title, aa, column, iscover]
 
+
+def appinn_pyld():
+    '''小众软件（RSS）'''
+    my_title = appinn_pyld.__doc__
+    column = 6
+    iscover = 1
+    try:
+        r =  requests.get('http://feeds.appinn.com/appinns/')
+        ss = unescape(r.text)
+        xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
+        titles = xpath('//item/title/text()')
+        covers = re.findall('<content:encoded>[\s\S]*?<img.*?src="(.*?)"',ss)
+        desc = xpath('//description/text()')[1:]
+        urls = re.findall('<link>(.*?)</link>',ss)[1:]
+        ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
+            '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
+        desc = [''.join(i) for i in list(zip(desc, ptime))]
+        result = list(zip(covers, titles, urls, desc))[:12]
+    except:
+        result = [['error'] * 4]
+        # print('异次元软件世界——finished……')
+    print(my_title, 'finished')
+    return [my_title, result, column, iscover]
 
 
 def iplaysoft_pyld():
@@ -82,7 +109,7 @@ def tuicool_pyld():
     iscover = 1
     try:
         s = requests.Session()
-        today1 = datetime.datetime.today().strftime('%m-%d')
+        today1 = thisday.strftime('%m-%d')
         # 这个if用来决定抓哪天的
         # if datetime.datetime.today().hour < 5:
         #     today1 = '%s-%s' % (datetime.datetime.today().strftime('%m'),
@@ -121,31 +148,6 @@ def tuicool_pyld():
     print(my_title, 'finished')
     return [my_title, aa, column, iscover]
 
-
-def func_modle():
-    '''标题'''
-    my_title = func_modle.__doc__
-    column = 6
-    iscover = 0
-    try:
-        r = requests.get('http://feed.iplaysoft.com/')
-        ss = unescape(r.text)
-        xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
-        titles = [i.replace('[来自异次元]', '').strip()
-                  for i in xpath('//item/title/text()')]
-        covers = xpath('//item/description/p[1]/a/img/@src')
-        desc = [i.text_content()
-                for i in xpath('//item/description/div[1]/p[1]')]
-        urls = xpath('//item/description/p[1]/a/@href')
-        ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
-            '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
-        desc = [''.join(i) for i in list(zip(desc, ptime))]
-        result = list(zip(covers, titles, urls, desc))[:6]
-    except:
-        result = [['error'] * 4]
-        # print('异次元软件世界——finished……')
-    print(my_title, 'finished')
-    return [my_title, result, column, iscover]
 
 if __name__ == '__main__':
     print('请使用其他模块进行调用')

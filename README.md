@@ -52,7 +52,7 @@ http://clericpy.github.io/
 * 软件小品http://www.appcheers.com/ 
 * 豆瓣一刻 http://moment.douban.com/app/ 或APP
 * 推酷 http://www.tuicool.com/ah/0/0?lang=1 √
-* 虎嗅 http://www.huxiu.com/ 
+* 虎嗅 http://www.huxiu.com/ √
 * 一点资讯 http://www.yidianzixun.com/ 
 * OSCHINA http://www.oschina.net/translate/tag/python   http://www.oschina.net/news  
 * 蟒周刊 http://weekly.pychina.org/  
