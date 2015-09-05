@@ -43,7 +43,7 @@ http://clericpy.github.io/
 
 ### 待录入应用/网址列表：
 * 绿色下载吧 文章、下载 http://www.xiazaiba.com/ 
-* 小众软件 http://www.appinn.com/ http://www.appinn.com/tag/selected/ 
+* 小众软件 http://www.appinn.com/ √
 * 80s电影 http://www.k5.cc/ 
 * 电影天堂 http://www.dytt8.net/ 
 * 果壳精选 APP
