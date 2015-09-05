@@ -14,8 +14,10 @@ this_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 def list2html(table_html):
     # 具体的数据转HTML过程
     website, list1, num, iscover = table_html
-    head = "<div sitename='{}'><table cellspacing=5 cellpadding=7 width='100%' align='center'><tbody><p><h2 align='center'>{}</h2></p>".format(
+    head = "<div sitename='{}'><table cellspacing=5 cellpadding=7 width='100%' align='center'><tbody><p><h2 align='center'>{}</h2></p>blablablabla</tbody></table></div>".format(
         website,website)
+    if not list1:
+        return head.replace('blablablabla','<div align="center">今日未发现新内容</div>') 
     table1 = ''
     for i, each in enumerate(list1):
         cover, title, url, desc = each
@@ -31,7 +33,7 @@ def list2html(table_html):
             cover=cover, url=url, title=title, desc=desc, width1=100 / num)
         if n % num == 0 or n == len(list1):
             table1 += '</tr>'
-    return head + table1 + '</tbody></table></div>'
+    return head.replace('blablablabla',table1) 
 
 
 def withpics_to_file(ss):
