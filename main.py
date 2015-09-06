@@ -17,7 +17,7 @@ def list2html(table_html):
     head = "<div sitename='{}'><table cellspacing=5 cellpadding=7 width='100%' align='center'><tbody><p><h2 align='center'>{}</h2></p>blablablabla</tbody></table></div>".format(
         website,website)
     if not list1:
-        return head.replace('blablablabla','<div align="center">今日未发现新内容</div>') 
+        return head.replace('blablablabla','<div align="center">暂无新数据</div>') 
     table1 = ''
     for i, each in enumerate(list1):
         cover, title, url, desc = each
