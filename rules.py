@@ -55,7 +55,7 @@ def huxiu_pyld():
 def appinn_pyld():
     '''小众软件（RSS）'''
     my_title = appinn_pyld.__doc__
-    column = 6
+    column = 7
     iscover = 1
     try:
         r =  requests.get('http://feeds.appinn.com/appinns/')
@@ -68,7 +68,7 @@ def appinn_pyld():
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         desc = [''.join(i) for i in list(zip(desc, ptime))]
-        result = list(zip(covers, titles, urls, desc))[:12]
+        result = list(zip(covers, titles, urls, desc))[:14]
     except:
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
