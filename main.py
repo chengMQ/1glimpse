@@ -22,7 +22,7 @@ def list2html(table_html):
     for i, each in enumerate(list1):
         cover, title, url, desc = each
         if iscover:
-            cover = '<img   width="100%" height=200  src="{}"  />'.format(
+            cover = '<img   style="width:100%;" height=200  src="{}"  />'.format(
                 cover)
         else:
             cover = ''
