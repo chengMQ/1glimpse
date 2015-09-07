@@ -41,7 +41,7 @@ def withpics_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><title>一瞥日报 %s</title><style> body{background-color:#a4a4a4} </style><style>A {text-decoration: NONE} </style><div align="right">采集时间：%s</div><hr>' % (this_time,this_time) + '<br>'.join(
+        scode = '<meta charset="utf-8"><meta name=”viewport” content=”target-densitydpi=device-dpi” /><title>一瞥日报 %s</title><style> body{background-color:#a4a4a4} </style><style>A {text-decoration: NONE} </style><div align="right">采集时间：%s</div><hr>' % (this_time,this_time) + '<br>'.join(
             ss)
         f.write(scode)
 
@@ -52,7 +52,7 @@ def withoutpic_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-no].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><title>一瞥日报 %s</title><style> body{background-color:#a4a4a4} </style><style>A {text-decoration: NONE} </style><div align="right">采集时间：%s</div><hr>' % (this_time,this_time) + '<br>'.join(
+        scode = '<meta charset="utf-8"><meta name=”viewport” content=”target-densitydpi=device-dpi” /><title>一瞥日报 %s</title><style> body{background-color:#a4a4a4} </style><style>A {text-decoration: NONE} </style><div align="right">采集时间：%s</div><hr>' % (this_time,this_time) + '<br>'.join(
             ss)
         f.write(scode)
 
