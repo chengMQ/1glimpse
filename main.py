@@ -29,7 +29,7 @@ def list2html(table_html):
         n = i + 1
         if (n - 1) % num == 0:
             table1 += '<tr style="width:100%;">'
-        table1 += '<td style="background:#eeeeee" VALIGN=TOP width="{width1}%"><a  href="{url}" target="_blank" style="font-size:18px;">{cover}<p><span style="color:#000000;"><strong>{title}</strong></span></p></a><span style="font-size:16px;">{desc}</span></td>'.format(
+        table1 += '<td style="background:#cccccc" VALIGN=TOP width="{width1}%"><a  href="{url}" target="_blank" style="font-size:18px;">{cover}<p><span style="color:#000000;"><strong>{title}</strong></span></p></a><span style="font-size:16px;">{desc}</span></td>'.format(
             cover=cover, url=url, title=title, desc=desc, width1=100 / num)
         if n % num == 0 or n == len(list1):
             table1 += '</tr>'
