@@ -53,7 +53,7 @@ def huxiu_pyld():
 
 
 def appinn_pyld():
-    '''<a style="color:#000000;" href="http://www.appinn.com/" title="分享免费、小巧、实用、有趣、绿色的软件。我最喜欢的软件栏目非常有价值，并且不定期更新优秀软件测评与推荐，值得一看。">小众软件（RSS）</a>'''
+    '''<a style="color:#000000;" href="http://www.appinn.com/" title="分享免费、小巧、实用、有趣、绿色的软件。“我最喜欢的软件”栏目非常有价值，并且不定期更新优秀软件测评与推荐，值得一看。">小众软件（RSS）</a>'''
     my_title = appinn_pyld.__doc__
     column = 7
     iscover = 1
