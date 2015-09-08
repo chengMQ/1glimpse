@@ -31,7 +31,7 @@ def huxiu_pyld():
             if today1 not in dates:
                 break
             pagenum += 1
-            urls = ['http://www.tuicool.com/articles/' + i for i in xpath(
+            urls = ['http://www.huxiu.com' + i for i in xpath(
                 '//div[@class="clearfix shadow-box-noshadow mod-info-flow"]//h3/a/@href')]
             covers = xpath('//div[@class="clearfix mod-b mod-art"]/a/img/@src')
             titles = xpath(
