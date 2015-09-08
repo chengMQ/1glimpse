@@ -9,7 +9,7 @@ thisday = datetime.datetime.today()
 
 
 def huxiu_pyld():
-    '''虎嗅网-看点'''
+    '''<a style="color:#000000;" href="http://www.huxiu.com/focus" title="虎嗅网是一个有视角的、个性化商业资讯与交流平台,核心关注对象是包括公众公司与创业型企业在内的一系列明星公司。部分重要内容在推酷有收录，其他焦点资讯仍值得看一下">虎嗅网-看点</a>'''
     my_title = huxiu_pyld.__doc__
     column = 6
     iscover = 1
@@ -48,23 +48,23 @@ def huxiu_pyld():
     except Exception as e:
         print(e)
         aa = [['error'] * 4]
-    print(my_title, 'finished')
+    print(re.sub('<.*?>','',my_title), 'finished')
     return [my_title, aa, column, iscover]
 
 
 def appinn_pyld():
-    '''小众软件（RSS）'''
+    '''<a style="color:#000000;" href="http://www.appinn.com/" title="分享免费、小巧、实用、有趣、绿色的软件。我最喜欢的软件栏目非常有价值，并且不定期更新优秀软件测评与推荐，值得一看。">小众软件（RSS）</a>'''
     my_title = appinn_pyld.__doc__
     column = 7
     iscover = 1
     try:
-        r =  requests.get('http://feeds.appinn.com/appinns/')
+        r = requests.get('http://feeds.appinn.com/appinns/')
         ss = unescape(r.text)
         xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
         titles = xpath('//item/title/text()')
-        covers = re.findall('<content:encoded>[\s\S]*?<img.*?src="(.*?)"',ss)
+        covers = re.findall('<content:encoded>[\s\S]*?<img.*?src="(.*?)"', ss)
         desc = xpath('//description/text()')[1:]
-        urls = re.findall('<link>(.*?)</link>',ss)[1:]
+        urls = re.findall('<link>(.*?)</link>', ss)[1:]
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         desc = [''.join(i) for i in list(zip(desc, ptime))]
@@ -72,12 +72,12 @@ def appinn_pyld():
     except:
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
-    print(my_title, 'finished')
+    print(re.sub('<.*?>','',my_title), 'finished')
     return [my_title, result, column, iscover]
 
 
 def iplaysoft_pyld():
-    '''异次元软件世界（RSS）'''
+    '''<a style="color:#000000;" href="http://www.iplaysoft.com/" title="很有特色的软件博客!推荐精选实用的软件,并提供相当详细且精美的图文评测，有大量绿色、实用软件及资源下载。评测语气相对客观，是通过软件提升效率的一大门户。">异次元软件世界（RSS）</a>'''
     my_title = iplaysoft_pyld.__doc__
     column = 6
     iscover = 1
@@ -98,12 +98,12 @@ def iplaysoft_pyld():
     except:
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
-    print(my_title, 'finished')
+    print(re.sub('<.*?>','',my_title), 'finished')
     return [my_title, result, column, iscover]
 
 
 def tuicool_pyld():
-    '''推酷-文章'''
+    '''<a style="color:#000000;" href="http://www.tuicool.com/ah" title="推酷网是面向IT人的个性化阅读网站,其背后的推荐引擎通过智能化的分析,向用户推荐感兴趣的科技资讯、产品设计、网络营销、技术文章等内容。它最大的收录价值在于，不但汇聚了当前主流IT资讯类网站的内容，并且在其中进行了精选，省去了浏览冷门知识的时间。">推酷-文章</a>'''
     my_title = tuicool_pyld.__doc__
     column = 6
     iscover = 1
@@ -142,10 +142,9 @@ def tuicool_pyld():
             desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
             aa += list(zip(covers, titles, urls, desc))
         # print('推酷——finished……')
-    except Exception as e:
-        print(e)
+    except:
         aa = [['error'] * 4]
-    print(my_title, 'finished')
+    print(re.sub('<.*?>','',my_title), 'finished')
     return [my_title, aa, column, iscover]
 
 
