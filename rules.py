@@ -8,6 +8,31 @@ from html import unescape
 thisday = datetime.datetime.today()
 
 
+def youku_pyld():
+    '''<a style="color:#000000;" href="http://www.youku.com/" title="视频服务平台,提供视频播放,视频发布,视频搜索,视频分享...对于这个网站，不想多做评论">优酷</a>'''
+    my_title = youku_pyld.__doc__
+    column = 7
+    iscover = 1
+    try:
+        r = requests.get('http://www.youku.com/?screen=phone', headers={
+                         'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'})
+        scode = r.content.decode('utf-8')
+        xpath = fromstring(scode).xpath
+        titles = xpath(
+            '//div[@class="yk-container"]/div[2]//div[@class="v-title"]/a/text()')
+        covers = [re.sub("background-image:url\('|'\);", '', i)
+                  for i in xpath('//div[@class="yk-container"]/div[2]//div[@class="v-pic-real"]/@style')]
+        desc = [''] * len(titles)
+        urls = xpath('//div[@class="yk-container"]/div[2]//div[@class="v-title"]/a/@href')
+        ptime = ['<div align="right"><br>%s</div>' %i for i in xpath('//div[@class="yk-container"]/div[2]//span[@class="v-time"]/text()')]
+        desc = [''.join(i) for i in list(zip(desc, ptime))]
+        result = list(zip(covers, titles, urls, desc))[:6]
+    except:
+        result = [['error'] * 4]
+    print(re.sub('<.*?>', '', my_title), 'finished')
+    return [my_title, result, column, iscover]
+
+
 def huxiu_pyld():
     '''<a style="color:#000000;" href="http://www.huxiu.com/focus" title="虎嗅网是一个有视角的、个性化商业资讯与交流平台,核心关注对象是包括公众公司与创业型企业在内的一系列明星公司。部分重要内容在推酷有收录，其他焦点资讯仍值得看一下">虎嗅网-看点</a>'''
     my_title = huxiu_pyld.__doc__
@@ -48,7 +73,7 @@ def huxiu_pyld():
     except Exception as e:
         print(e)
         aa = [['error'] * 4]
-    print(re.sub('<.*?>','',my_title), 'finished')
+    print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, aa, column, iscover]
 
 
@@ -72,7 +97,7 @@ def appinn_pyld():
     except:
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
-    print(re.sub('<.*?>','',my_title), 'finished')
+    print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, result, column, iscover]
 
 
@@ -98,7 +123,7 @@ def iplaysoft_pyld():
     except:
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
-    print(re.sub('<.*?>','',my_title), 'finished')
+    print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, result, column, iscover]
 
 
@@ -144,7 +169,7 @@ def tuicool_pyld():
         # print('推酷——finished……')
     except:
         aa = [['error'] * 4]
-    print(re.sub('<.*?>','',my_title), 'finished')
+    print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, aa, column, iscover]
 
 
