@@ -21,6 +21,8 @@ def list2html(table_html):
     table1 = ''
     for i, each in enumerate(list1):
         cover, title, url, desc = each
+        if not cover:
+            cover='error'
         if iscover:
             cover = '<img   style="width:100%;" height=200  src="{}" onerror="this.src=\'empty.jpg\'" />'.format(
                 cover)

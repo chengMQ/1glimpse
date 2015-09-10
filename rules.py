@@ -160,7 +160,7 @@ def tuicool_pyld():
             # covers = [i[0].replace(
             #     '!middle', '') for i in covers if i else '']
             covers = list(map(lambda x: x[0].replace(
-                '!middle', '') if x else 'error', covers))
+                '!middle', '') if x else '', covers))
             titles = xpath('//a[@class="article-list-title"]/text()')
             desc = [i.strip()
                     for i in xpath('//div[@class="article_cut"]/text()')]
