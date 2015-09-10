@@ -23,8 +23,10 @@ def youku_pyld():
         covers = [re.sub("background-image:url\('|'\);", '', i)
                   for i in xpath('//div[@class="yk-container"]/div[2]//div[@class="v-pic-real"]/@style')]
         desc = [''] * len(titles)
-        urls = xpath('//div[@class="yk-container"]/div[2]//div[@class="v-title"]/a/@href')
-        ptime = ['<div align="right"><br>%s</div>' %i for i in xpath('//div[@class="yk-container"]/div[2]//span[@class="v-time"]/text()')]
+        urls = xpath(
+            '//div[@class="yk-container"]/div[2]//div[@class="v-title"]/a/@href')
+        ptime = ['<div align="right"><br>%s</div>' %
+                 i for i in xpath('//div[@class="yk-container"]/div[2]//span[@class="v-time"]/text()')]
         desc = [''.join(i) for i in list(zip(desc, ptime))]
         result = list(zip(covers, titles, urls, desc))[:6]
     except:
@@ -155,8 +157,10 @@ def tuicool_pyld():
             urls = ['http://www.tuicool.com/articles/' + i for i in pids]
             covers = [xpath(
                 '//div[@data-id="%s"]//div[@class="article_thumb"]/img/@src' % i) for i in pids]
+            # covers = [i[0].replace(
+            #     '!middle', '') for i in covers if i else '']
             covers = list(map(lambda x: x[0].replace(
-                '!middle', '') if x else 'empty.jpg', covers))
+                '!middle', '') if x else 'error', covers))
             titles = xpath('//a[@class="article-list-title"]/text()')
             desc = [i.strip()
                     for i in xpath('//div[@class="article_cut"]/text()')]
@@ -167,7 +171,8 @@ def tuicool_pyld():
             desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
             aa += list(zip(covers, titles, urls, desc))
         # print('推酷——finished……')
-    except:
+    except Exception as e:
+        print(e)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, aa, column, iscover]

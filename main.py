@@ -22,7 +22,7 @@ def list2html(table_html):
     for i, each in enumerate(list1):
         cover, title, url, desc = each
         if iscover:
-            cover = '<img   style="width:100%;" height=200  src="{}"  />'.format(
+            cover = '<img   style="width:100%;" height=200  src="{}" onerror="this.src=\'empty.jpg\'" />'.format(
                 cover)
         else:
             cover = ''
@@ -84,7 +84,7 @@ if __name__ == '__main__':
     ss = pp.map(lambda x: x(), choose_func)
     pp.close()
     pp.join()
-    titles = ' | '.join([ i[0] for i in ss])
+    titles = ' | '.join([i[0] for i in ss])
     withpics_to_file(ss)
     withoutpic_to_file(ss)
     refresh_index()
