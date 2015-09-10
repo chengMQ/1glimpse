@@ -53,8 +53,7 @@ def huxiu_pyld1():
             r = s.get('http://www.huxiu.com/focus/%s.html' % pagenum)
             scode = r.content.decode('utf-8')
             xpath = fromstring(scode).xpath
-            dates = [re.sub(' .*', '', i)
-                     for i in xpath('//span[@class="time"]/text()')]
+            dates = ''.join(xpath('//span[@class="time"]/text()'))
             if '小时前' not in dates:
                 break
             pagenum += 1
