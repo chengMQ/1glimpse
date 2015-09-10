@@ -35,14 +35,14 @@ def youku_pyld():
     return [my_title, result, column, iscover]
 
 
-def huxiu_pyld():
+def huxiu_pyld1():
     '''<a style="color:#000000;" href="http://www.huxiu.com/focus" title="虎嗅网是一个有视角的、个性化商业资讯与交流平台,核心关注对象是包括公众公司与创业型企业在内的一系列明星公司。部分重要内容在推酷有收录，其他焦点资讯仍值得看一下">虎嗅网-看点</a>'''
     my_title = huxiu_pyld.__doc__
     column = 6
     iscover = 1
     try:
         s = requests.Session()
-        today1 = thisday.strftime('%Y-%m-%d')
+        # today1 = thisday.strftime('%Y-%m-%d')
         # 这个if用来决定抓哪天的
         # if datetime.datetime.today().hour < 5:
         #     today1 = '%s-%s' % (datetime.datetime.today().strftime('%m'),
@@ -54,28 +54,29 @@ def huxiu_pyld():
             scode = r.content.decode('utf-8')
             xpath = fromstring(scode).xpath
             dates = [re.sub(' .*', '', i)
-                     for i in xpath('//time[@class="time"]/text()')]
-            if today1 not in dates:
+                     for i in xpath('//span[@class="time"]/text()')]
+            if '小时前' not in dates:
                 break
             pagenum += 1
             urls = ['http://www.huxiu.com' + i for i in xpath(
-                '//div[@class="clearfix shadow-box-noshadow mod-info-flow"]//h3/a/@href')]
-            covers = xpath('//div[@class="clearfix mod-b mod-art"]/a/img/@src')
+                '//div[@class="mod-info-flow"]//h3/a/@href')]
+            covers = xpath('//div[@class="mod-info-flow"]/div[@class="mod-b mod-art "]//div[@class="mod-thumb"]/img/@src')
             titles = xpath(
-                '//div[@class="clearfix shadow-box-noshadow mod-info-flow"]//h3/a/text()')
+                '//div[@class="mod-info-flow"]//h3/a/text()')
             desc = [i.strip()
                     for i in xpath('//div[@class="mob-sub"]/text()')]
-            ptime = xpath('//div[@class="mob-author"]')
-            ptime = ['<div style="font-size:15px;" align="right"><br>%s</div>' % re.sub('\s{2,}', '&nbsp&nbsp&nbsp&nbsp', i.text_content().replace('稍后阅读', '').strip())
-                     for i in ptime]
+            # ptime = xpath('//div[@class="mob-author"]')
+            # ptime = ['<div style="font-size:15px;" align="right"><br>%s</div>' % re.sub('\s{2,}', '&nbsp&nbsp&nbsp&nbsp', i.text_content().replace('稍后阅读', '').strip())
+            #          for i in ptime]
             # print(ptime)
-            desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
+            # desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
             aa += list(zip(covers, titles, urls, desc))
         # print('推酷——finished……')
     except Exception as e:
         print(e)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
+    print(aa)
     return [my_title, aa, column, iscover]
 
 
@@ -159,8 +160,8 @@ def tuicool_pyld():
                 '//div[@data-id="%s"]//div[@class="article_thumb"]/img/@src' % i) for i in pids]
             # covers = [i[0].replace(
             #     '!middle', '') for i in covers if i else '']
-            covers = list(map(lambda x: x[0].replace(
-                '!middle', '') if x else '', covers))
+            #.replace('!middle', '')
+            covers = list(map(lambda x: x[0] if x else '', covers))
             titles = xpath('//a[@class="article-list-title"]/text()')
             desc = [i.strip()
                     for i in xpath('//div[@class="article_cut"]/text()')]
