@@ -8,10 +8,37 @@ from html import unescape
 thisday = datetime.datetime.today()
 
 
+def news36kr_pyld():
+    '''<a style="color:#000000;" href="http://36kr.com/" title="36氪是一个关注互联网创业的科技博客，旨在帮助互联网创业者实现创业梦。我们相信每个人都可以像来氪星人超人那样强大无比。还行吧，比没有强">36kr-首页</a>'''
+    my_title = news36kr_pyld.__doc__
+    column = 6
+    iscover = 1
+    try:
+        r = requests.get('http://36kr.com/')
+        items = r.json()['posts']
+        items = [
+            i for i in items if i['published_at'].startswith(thisday.strftime('%Y-%m-%d'))]
+
+        urls = ['http://36kr.com/p/%s.html' % i['id'] for i in items]
+        covers = [i['cover'] + '!feature' for i in items]
+        titles = [i['title'] for i in items]
+        sums = [i['summary'] for i in items]
+        ptime = ['<div align="right"><br>%s</div>' % re.sub('\..*', '', i['published_at'].replace('T', ' '))
+                 for i in items]
+        sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
+        aa = list(zip(covers, titles, urls, sums))
+        # print('推酷——finished……')
+    except Exception as e:
+        print(e)
+        aa = [['error'] * 4]
+    print(re.sub('<.*?>', '', my_title), 'finished')
+    return (my_title, aa, column, iscover)
+
+
 def movie80s_pyld():
-    '''<a style="color:#000000;" href="http://www.80s.cn/" title="专业提供MP4格式的手机视频下载,电影,电视剧,动漫,综艺,音乐短片，平时下电影的去处">80s手机电影网-热门电影</a>'''
+    '''<a style="color:#000000;" href="http://www.80s.cn/" title="专业提供MP4格式的手机视频下载,电影,电视剧,动漫,综艺,音乐短片，平时下电影的去处">80s-热门电影</a>'''
     my_title = movie80s_pyld.__doc__
-    column = 10
+    column = 11
     iscover = 1
     try:
         r = requests.get('http://www.80s.cn/movie/list/-2015---h', headers={
@@ -20,11 +47,11 @@ def movie80s_pyld():
         xpath = fromstring(scode).xpath
         titles = xpath('//ul[@class="me1 clearfix"]/li/a/@title')
         covers = xpath('//ul[@class="me1 clearfix"]/li/a/img/@_src')
-        desc = xpath(
+        sums = xpath(
             '//ul[@class="me1 clearfix"]/li/span[@class="tip"]/text()')
         urls = ['http://www.80s.cn' +
                 i for i in xpath('//ul[@class="me1 clearfix"]/li/a/@href')]
-        result = list(zip(covers, titles, urls, desc))
+        result = list(zip(covers, titles, urls, sums))[:22]
     except Exception as e:
         print(e)
         result = [['error'] * 4]
@@ -46,17 +73,43 @@ def youku_pyld():
             '//div[@class="yk-container"]/div[2]//div[@class="v-title"]/a/text()')
         covers = [re.sub("background-image:url\('|'\);", '', i)
                   for i in xpath('//div[@class="yk-container"]/div[2]//div[@class="v-pic-real"]/@style')]
-        desc = [''] * len(titles)
+        sums = [''] * len(titles)
         urls = xpath(
             '//div[@class="yk-container"]/div[2]//div[@class="v-title"]/a/@href')
         ptime = ['<div align="right"><br>%s</div>' %
                  i for i in xpath('//div[@class="yk-container"]/div[2]//span[@class="v-time"]/text()')]
-        desc = [''.join(i) for i in list(zip(desc, ptime))]
-        result = list(zip(covers, titles, urls, desc))[:6]
+        sums = [''.join(i) for i in list(zip(sums, ptime))]
+        result = list(zip(covers, titles, urls, sums))[:6]
     except:
         result = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, result, column, iscover]
+
+
+def chinaz_pyld():
+    '''<a style="color:#000000;" href="http://www.chinaz.com/" title="站长之家(中国站长站)为个人站长与企业网络提供全面的站长资讯、最新最全的源代码程序下载、海量建站素材、强大的搜索优化辅助工具、网络产品设计与运营理念以及一站式网络解决方案。做网站的应该都用过。">站长之家-首页推荐</a>'''
+    my_title = chinaz_pyld.__doc__
+    column = 6
+    iscover = 1
+    try:
+        r = requests.get('http://www.chinaz.com/')
+        items = fromstring(r.content.decode('utf8')).xpath(
+            '//div[@class="topicsImgTxtBar aTabMain"]/ul[1]/li')
+
+        items = [i for i in items if i.xpath(
+            './div/span[@class="date"]/text()')[0].startswith('09月12日')]
+        titles = [i.xpath('./a//h5/text()')[0] for i in items]
+        covers = [i.xpath('./a//img/@src')[0] for i in items]
+        urls = [i.xpath('./a/@href')[0] for i in items]
+        sums = [i.xpath('./a//p/text()')[0] for i in items]
+
+        aa = list(zip(covers, titles, urls, sums))
+        # print('推酷——finished……')
+    except Exception as e:
+        print(e)
+        aa = [['error'] * 4]
+    print(re.sub('<.*?>', '', my_title), 'finished')
+    return (my_title, aa, column, iscover)
 
 
 def huxiu_pyld():
@@ -74,20 +127,20 @@ def huxiu_pyld():
 
         urls = [('http://www.huxiu.com/' + i.xpath('./a/@href')
                  [0]).replace('//', '/') for i in items]
-        covers = [i.xpath('./a//img/@src')[0]+'!200x300' for i in items]
+        covers = [i.xpath('./a//img/@src')[0] + '!200x300' for i in items]
         titles = [i.xpath('./a//b/text()')[0] for i in items]
-        desc = [i.xpath('./a//p[@class="p2"]/text()')[0].strip()
+        sums = [i.xpath('./a//p[@class="p2"]/text()')[0].strip()
                 for i in items]
         ptime = [i.xpath('./p//time/@title')[0] for i in items]
 
-        desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
-        aa = list(zip(covers, titles, urls, desc))
+        sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
+        aa = list(zip(covers, titles, urls, sums))
         # print('推酷——finished……')
     except Exception as e:
         print(e)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
-    return [my_title, aa, column, iscover]
+    return (my_title, aa, column, iscover)
 
 
 def appinn_pyld():
@@ -101,12 +154,12 @@ def appinn_pyld():
         xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
         titles = xpath('//item/title/text()')
         covers = re.findall('<content:encoded>[\s\S]*?<img.*?src="(.*?)"', ss)
-        desc = xpath('//description/text()')[1:]
+        sums = xpath('//sumsription/text()')[1:]
         urls = re.findall('<link>(.*?)</link>', ss)[1:]
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
-        desc = [''.join(i) for i in list(zip(desc, ptime))]
-        result = list(zip(covers, titles, urls, desc))[:14]
+        sums = [''.join(i) for i in list(zip(sums, ptime))]
+        result = list(zip(covers, titles, urls, sums))[:14]
     except:
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
@@ -125,14 +178,14 @@ def iplaysoft_pyld():
         xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
         titles = [i.replace('[来自异次元]', '').strip()
                   for i in xpath('//item/title/text()')]
-        covers = xpath('//item/description/p[1]/a/img/@src')
-        desc = [i.text_content()
-                for i in xpath('//item/description/div[1]/p[1]')]
-        urls = xpath('//item/description/p[1]/a/@href')
+        covers = xpath('//item/sumsription/p[1]/a/img/@src')
+        sums = [i.text_content()
+                for i in xpath('//item/sumsription/div[1]/p[1]')]
+        urls = xpath('//item/sumsription/p[1]/a/@href')
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
-        desc = [''.join(i) for i in list(zip(desc, ptime))]
-        result = list(zip(covers, titles, urls, desc))[:6]
+        sums = [''.join(i) for i in list(zip(sums, ptime))]
+        result = list(zip(covers, titles, urls, sums))[:6]
     except:
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
@@ -173,20 +226,20 @@ def tuicool_pyld():
             #.replace('!middle', '')
             covers = list(map(lambda x: x[0] if x else '', covers))
             titles = xpath('//a[@class="article-list-title"]/text()')
-            desc = [i.strip()
+            sums = [i.strip()
                     for i in xpath('//div[@class="article_cut"]/text()')]
             ptime = xpath('//div[@class="tip meta-tip"]')
             ptime = ['<div style="font-size:15px;" align="right"><br>%s</div>' % re.sub('\s{2,}', '&nbsp&nbsp&nbsp&nbsp', i.text_content().replace('稍后阅读', '').strip())
                      for i in ptime]
             # print(ptime)
-            desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
-            aa += list(zip(covers, titles, urls, desc))
+            sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
+            aa += list(zip(covers, titles, urls, sums))
         # print('推酷——finished……')
     except Exception as e:
         print(e)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
-    return [my_title, aa, column, iscover]
+    return (my_title, aa, column, iscover)
 
 
 if __name__ == '__main__':

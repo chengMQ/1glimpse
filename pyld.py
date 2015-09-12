@@ -2,31 +2,31 @@ import requests
 import re
 import datetime
 from lxml.html import fromstring
+from pprint import pprint
+
+# 本文件只用来测试时候用的，没有其他价值
+
+
 thisday = datetime.datetime.today()
 
 
-def huxiu_pyld():
-    '''<a style="color:#000000;" href="http://www.huxiu.com/focus" title="虎嗅网是一个有视角的、个性化商业资讯与交流平台,核心关注对象是包括公众公司与创业型企业在内的一系列明星公司。部分重要内容在推酷有收录，其他焦点资讯仍值得看一下">虎嗅网-看点</a>'''
-    my_title = huxiu_pyld.__doc__
+def chinaz_pyld():
+    '''<a style="color:#000000;" href="http://www.chinaz.com/" title="站长之家(中国站长站)为个人站长与企业网络提供全面的站长资讯、最新最全的源代码程序下载、海量建站素材、强大的搜索优化辅助工具、网络产品设计与运营理念以及一站式网络解决方案。做网站的应该都用过。">站长之家-首页推荐</a>'''
+    my_title = chinaz_pyld.__doc__
     column = 6
     iscover = 1
     try:
-        r = requests.get('http://m.huxiu.com/focus/')
-        scode = r.content.decode('utf-8')
-        items = fromstring(scode).xpath('//ul[@class="ul-list focus-list"]/li')
-        today1 = thisday.strftime('%Y-%m-%d')
+        r = requests.get('http://www.chinaz.com/')
+        items = fromstring(r.content.decode('utf8')).xpath(
+            '//div[@class="topicsImgTxtBar aTabMain"]/ul[1]/li')
+
         items = [i for i in items if i.xpath(
-            './p/time/@title')[0].startswith(today1)]
-
-        urls = [('http://www.huxiu.com/' + i.xpath('./a/@href')
-                 [0]).replace('//', '/') for i in items]
+            './div/span[@class="date"]/text()')[0].startswith('09月12日')]
+        titles = [i.xpath('./a//h5/text()')[0] for i in items]
         covers = [i.xpath('./a//img/@src')[0] for i in items]
-        titles = [i.xpath('./a//b/text()')[0] for i in items]
-        desc = [i.xpath('./a//p[@class="p2"]/text()')[0].strip()
-                for i in items]
-        ptime = [i.xpath('./p//time/@title')[0] for i in items]
+        urls = [i.xpath('./a/@href')[0] for i in items]
+        desc = [i.xpath('./a//p/text()')[0] for i in items]
 
-        desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
         aa = list(zip(covers, titles, urls, desc))
         # print('推酷——finished……')
     except Exception as e:
@@ -36,4 +36,14 @@ def huxiu_pyld():
     return [my_title, aa, column, iscover]
 
 
-huxiu_pyld()
+# huxiu_pyld()
+r = requests.get('http://www.chinaz.com/')
+items = fromstring(r.content.decode('utf8')).xpath(
+    '//div[@class="topicsImgTxtBar aTabMain"]/ul[1]/li')
+
+items = [i for i in items if i.xpath(
+    './div/span[@class="date"]/text()')[0].startswith('09月12日')]
+titles = [i.xpath('./a//h5/text()')[0] for i in items]
+covers = [i.xpath('./a//img/@src')[0] for i in items]
+urls = [i.xpath('./a/@href')[0] for i in items]
+desc = [i.xpath('./a//p/text()')[0] for i in items]
