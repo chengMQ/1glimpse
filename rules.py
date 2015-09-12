@@ -33,7 +33,7 @@ def movie80s_pyld():
 
 
 def youku_pyld():
-    '''<a style="color:#000000;" href="http://www.youku.com/" title="视频服务平台,提供视频播放,视频发布,视频搜索,视频分享...对于这个网站，不想多做评论">优酷</a>'''
+    '''<a style="color:#000000;" href="http://www.youku.com/" title="视频服务平台,提供视频播放,视频发布,视频搜索,视频分享...对于这个网站，不想多做评论">优酷-热门</a>'''
     my_title = youku_pyld.__doc__
     column = 7
     iscover = 1
