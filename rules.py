@@ -8,6 +8,30 @@ from html import unescape
 thisday = datetime.datetime.today()
 
 
+def movie80s_pyld():
+    '''<a style="color:#000000;" href="http://www.80s.cn/" title="专业提供MP4格式的手机视频下载,电影,电视剧,动漫,综艺,音乐短片，平时下电影的去处">80s手机电影网-热门电影</a>'''
+    my_title = movie80s_pyld.__doc__
+    column = 10
+    iscover = 1
+    try:
+        r = requests.get('http://www.80s.cn/movie/list/-2015---h', headers={
+                         'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'})
+        scode = r.text
+        xpath = fromstring(scode).xpath
+        titles = xpath('//ul[@class="me1 clearfix"]/li/a/@title')
+        covers = xpath('//ul[@class="me1 clearfix"]/li/a/img/@_src')
+        desc = xpath(
+            '//ul[@class="me1 clearfix"]/li/span[@class="tip"]/text()')
+        urls = ['http://www.80s.cn' +
+                i for i in xpath('//ul[@class="me1 clearfix"]/li/a/@href')]
+        result = list(zip(covers, titles, urls, desc))
+    except Exception as e:
+        print(e)
+        result = [['error'] * 4]
+    print(re.sub('<.*?>', '', my_title), 'finished')
+    return [my_title, result, column, iscover]
+
+
 def youku_pyld():
     '''<a style="color:#000000;" href="http://www.youku.com/" title="视频服务平台,提供视频播放,视频发布,视频搜索,视频分享...对于这个网站，不想多做评论">优酷</a>'''
     my_title = youku_pyld.__doc__
@@ -35,47 +59,34 @@ def youku_pyld():
     return [my_title, result, column, iscover]
 
 
-def huxiu_pyld1():
+def huxiu_pyld():
     '''<a style="color:#000000;" href="http://www.huxiu.com/focus" title="虎嗅网是一个有视角的、个性化商业资讯与交流平台,核心关注对象是包括公众公司与创业型企业在内的一系列明星公司。部分重要内容在推酷有收录，其他焦点资讯仍值得看一下">虎嗅网-看点</a>'''
     my_title = huxiu_pyld.__doc__
     column = 6
     iscover = 1
     try:
-        s = requests.Session()
-        # today1 = thisday.strftime('%Y-%m-%d')
-        # 这个if用来决定抓哪天的
-        # if datetime.datetime.today().hour < 5:
-        #     today1 = '%s-%s' % (datetime.datetime.today().strftime('%m'),
-        #                         (datetime.datetime.today().day - 1))
-        pagenum = 1
-        aa = []
-        while 1:
-            r = s.get('http://www.huxiu.com/focus/%s.html' % pagenum)
-            scode = r.content.decode('utf-8')
-            xpath = fromstring(scode).xpath
-            dates = ''.join(xpath('//span[@class="time"]/text()'))
-            if '小时前' not in dates:
-                break
-            pagenum += 1
-            urls = ['http://www.huxiu.com' + i for i in xpath(
-                '//div[@class="mod-info-flow"]//h3/a/@href')]
-            covers = xpath('//div[@class="mod-info-flow"]/div[@class="mod-b mod-art "]//div[@class="mod-thumb"]/img/@src')
-            titles = xpath(
-                '//div[@class="mod-info-flow"]//h3/a/text()')
-            desc = [i.strip()
-                    for i in xpath('//div[@class="mob-sub"]/text()')]
-            # ptime = xpath('//div[@class="mob-author"]')
-            # ptime = ['<div style="font-size:15px;" align="right"><br>%s</div>' % re.sub('\s{2,}', '&nbsp&nbsp&nbsp&nbsp', i.text_content().replace('稍后阅读', '').strip())
-            #          for i in ptime]
-            # print(ptime)
-            # desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
-            aa += list(zip(covers, titles, urls, desc))
+        r = requests.get('http://m.huxiu.com/focus/')
+        scode = r.content.decode('utf-8')
+        items = fromstring(scode).xpath('//ul[@class="ul-list focus-list"]/li')
+        today1 = thisday.strftime('%Y-%m-%d')
+        items = [i for i in items if i.xpath(
+            './p/time/@title')[0].startswith(today1)]
+
+        urls = [('http://www.huxiu.com/' + i.xpath('./a/@href')
+                 [0]).replace('//', '/') for i in items]
+        covers = [i.xpath('./a//img/@src')[0]+'!200x300' for i in items]
+        titles = [i.xpath('./a//b/text()')[0] for i in items]
+        desc = [i.xpath('./a//p[@class="p2"]/text()')[0].strip()
+                for i in items]
+        ptime = [i.xpath('./p//time/@title')[0] for i in items]
+
+        desc = ['<br>'.join(i) for i in list(zip(desc, ptime))]
+        aa = list(zip(covers, titles, urls, desc))
         # print('推酷——finished……')
     except Exception as e:
         print(e)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
-    print(aa)
     return [my_title, aa, column, iscover]
 
 

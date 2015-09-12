@@ -15,7 +15,7 @@ def list2html(table_html):
     # 具体的数据转HTML过程
     website, list1, num, iscover = table_html
     head = "<div sitename='{}'><table style='table-layout:fixed;' cellspacing=5 cellpadding=7 width='100%' align='center'><tbody><p><h2 align='center'>{}</h2></p><hr>blablablabla</tbody></table></div>".format(
-        website, website)
+        re.sub('<.*?>','',website), website)
     if not list1:
         return head.replace('blablablabla', '<div align="center">暂无新数据</div>')
     table1 = ''
