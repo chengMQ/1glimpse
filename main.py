@@ -33,8 +33,10 @@ def list2html(table_html):
             table1 += '<tr style="width:100%;">'
         table1 += '<td style="background:#cccccc" VALIGN=TOP width="{width1}%"><a  href="{url}" target="_blank" style="font-size:18px;">{cover}<p><span style="color:#000000;"><strong>{title}</strong></span></p></a><span style="font-size:16px;">{sums}</span></td>'.format(
             cover=cover, url=url, title=title, sums=sums, width1=100 / num)
-        if n % num == 0 or n == len(list1):
+        if n % num == 0 :
             table1 += '</tr>'
+        if n == len(list1) and num>(n%num):
+            table1 = table1+ '<td width="16.666666666666668%" valign="TOP" style="background:#cccccc"></td>'*(num-n%num) +'</tr>'
     return head.replace('blablablabla', table1)
 
 
