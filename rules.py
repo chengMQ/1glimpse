@@ -154,7 +154,7 @@ def appinn_pyld():
         xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
         titles = xpath('//item/title/text()')
         covers = re.findall('<content:encoded>[\s\S]*?<img.*?src="(.*?)"', ss)
-        sums = xpath('//sumsription/text()')[1:]
+        sums = xpath('//description/text()')[1:]
         urls = re.findall('<link>(.*?)</link>', ss)[1:]
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
@@ -178,10 +178,10 @@ def iplaysoft_pyld():
         xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
         titles = [i.replace('[来自异次元]', '').strip()
                   for i in xpath('//item/title/text()')]
-        covers = xpath('//item/sumsription/p[1]/a/img/@src')
+        covers = xpath('//item/description/p[1]/a/img/@src')
         sums = [i.text_content()
-                for i in xpath('//item/sumsription/div[1]/p[1]')]
-        urls = xpath('//item/sumsription/p[1]/a/@href')
+                for i in xpath('//item/description/div[1]/p[1]')]
+        urls = xpath('//item/description/p[1]/a/@href')
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
