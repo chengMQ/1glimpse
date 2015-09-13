@@ -32,7 +32,7 @@ def news36kr_pyld():
         print(e)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
-    return (my_title, aa, column, iscover)
+    return [my_title, aa, column, iscover]
 
 
 def movie80s_pyld():
@@ -109,7 +109,7 @@ def chinaz_pyld():
         print(e)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
-    return (my_title, aa, column, iscover)
+    return [my_title, aa, column, iscover]
 
 
 def huxiu_pyld():
@@ -140,7 +140,7 @@ def huxiu_pyld():
         print(e)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
-    return (my_title, aa, column, iscover)
+    return [my_title, aa, column, iscover]
 
 
 def appinn_pyld():
@@ -239,7 +239,7 @@ def tuicool_pyld():
         print(e)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
-    return (my_title, aa, column, iscover)
+    return [my_title, aa, column, iscover]
 
 
 if __name__ == '__main__':
