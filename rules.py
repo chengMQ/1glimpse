@@ -121,7 +121,7 @@ def gankio_pyld():
         r = requests.get('http://gank.io/')
         scode = re.findall('<div class="outlink">(.*?)/div>', r.text)[0]
         # print(scode)
-        items = ['<img src="{}" width=100% />'.format(i) for i in re.findall(
+        items = ['<a href="{}"><img src="{}" width=100% /></a>'.format(i,i) for i in re.findall(
             '<h1.*?<img.*?src="(.*?)".*?</h1>', scode)]
         # print(items)
         scode = re.sub('.*(<img.*?</h1>){1,}', '', scode)
