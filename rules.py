@@ -126,7 +126,7 @@ def huxiu_pyld():
             './p/time/@title')[0].startswith(today1)]
 
         urls = [('http://www.huxiu.com/' + i.xpath('./a/@href')
-                 [0]).replace('//', '/') for i in items]
+                 [0]).replace('//', '/').replace('http:/','http://') for i in items]
         covers = [i.xpath('./a//img/@src')[0] + '!200x300' for i in items]
         titles = [i.xpath('./a//b/text()')[0] for i in items]
         sums = [i.xpath('./a//p[@class="p2"]/text()')[0].strip()
