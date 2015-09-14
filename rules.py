@@ -9,7 +9,7 @@ thisday = datetime.datetime.today()
 
 
 def news36kr_pyld():
-    '''<a style="color:#000000;" href="http://36kr.com/" title="36氪是一个关注互联网创业的科技博客，旨在帮助互联网创业者实现创业梦。我们相信每个人都可以像来氪星人超人那样强大无比。还行吧，比没有强">36kr-首页</a>'''
+    '''<a style="color:#000000;" target="_blank" href="http://36kr.com/" title="36氪是一个关注互联网创业的科技博客，旨在帮助互联网创业者实现创业梦。我们相信每个人都可以像来氪星人超人那样强大无比。还行吧，比没有强">36kr-首页</a>'''
     my_title = news36kr_pyld.__doc__
     column = 6
     iscover = 1
@@ -36,7 +36,7 @@ def news36kr_pyld():
 
 
 def movie80s_pyld():
-    '''<a style="color:#000000;" href="http://www.80s.cn/" title="专业提供MP4格式的手机视频下载,电影,电视剧,动漫,综艺,音乐短片，平时下电影的去处">80s-热门电影</a>'''
+    '''<a style="color:#000000;" target="_blank" href="http://www.80s.cn/" title="专业提供MP4格式的手机视频下载,电影,电视剧,动漫,综艺,音乐短片，平时下电影的去处">80s-热门电影</a>'''
     my_title = movie80s_pyld.__doc__
     column = 11
     iscover = 1
@@ -60,7 +60,7 @@ def movie80s_pyld():
 
 
 def youku_pyld():
-    '''<a style="color:#000000;" href="http://www.youku.com/" title="视频服务平台,提供视频播放,视频发布,视频搜索,视频分享...对于这个网站，不想多做评论">优酷-热门</a>'''
+    '''<a style="color:#000000;" target="_blank" href="http://www.youku.com/" title="视频服务平台,提供视频播放,视频发布,视频搜索,视频分享...对于这个网站，不想多做评论">优酷-热门</a>'''
     my_title = youku_pyld.__doc__
     column = 7
     iscover = 1
@@ -87,7 +87,7 @@ def youku_pyld():
 
 
 def chinaz_pyld():
-    '''<a style="color:#000000;" href="http://www.chinaz.com/" title="站长之家(中国站长站)为个人站长与企业网络提供全面的站长资讯、最新最全的源代码程序下载、海量建站素材、强大的搜索优化辅助工具、网络产品设计与运营理念以及一站式网络解决方案。做网站的应该都用过。">站长之家-首页推荐</a>'''
+    '''<a style="color:#000000;" target="_blank" href="http://www.chinaz.com/" title="站长之家(中国站长站)为个人站长与企业网络提供全面的站长资讯、最新最全的源代码程序下载、海量建站素材、强大的搜索优化辅助工具、网络产品设计与运营理念以及一站式网络解决方案。做网站的应该都用过。">站长之家-首页推荐</a>'''
     my_title = chinaz_pyld.__doc__
     column = 6
     iscover = 1
@@ -97,7 +97,7 @@ def chinaz_pyld():
             '//div[@class="topicsImgTxtBar aTabMain"]/ul[1]/li')
 
         items = [i for i in items if i.xpath(
-            './div/span[@class="date"]/text()')[0].startswith(thisday.strftime(r'%myue%dri').replace('yue','月').replace('ri','日'))]
+            './div/span[@class="date"]/text()')[0].startswith(thisday.strftime(r'%myue%dri').replace('yue', '月').replace('ri', '日'))]
         titles = [i.xpath('./a//h5/text()')[0] for i in items]
         covers = [i.xpath('./a//img/@src')[0] for i in items]
         urls = [i.xpath('./a/@href')[0] for i in items]
@@ -112,8 +112,38 @@ def chinaz_pyld():
     return [my_title, aa, column, iscover]
 
 
+def gankio_pyld():
+    '''<a style="color:#000000;" href="http://gank.io/" title="每日分享妹子图和技术干货，还有供大家中午休息的休闲视频。妹子质量大约在70分以上，技术偏向于移动开发或前端，视频是真好东西，和“开眼”的逼格不一样。">干货集中营</a>'''
+    my_title = gankio_pyld.__doc__
+    column = 6
+    iscover = 0
+    try:
+        r = requests.get('http://gank.io/')
+        scode = re.findall('<div class="outlink">(.*?)/div>', r.text)[0]
+        # print(scode)
+        items = ['<img src="{}" width=100% />'.format(i) for i in re.findall(
+            '<h1.*?<img.*?src="(.*?)".*?</h1>', scode)]
+        # print(items)
+        scode = re.sub('.*(<img.*?</h1>){1,}', '', scode)
+        ss = ['<p><span style="color:#000000;"><strong>%s</strong></span></p>%s' %
+              (i[0], i[1])for i in re.findall('<h1.*?>(.*?)</h1>(.*?</ul>)', scode)]
+        # print(ss)
+        sums = items + ss
+
+        urls = [''] * len(sums)
+        titles = [''] * len(sums)
+        covers = [''] * len(sums)
+        aa = list(zip(covers, titles, urls, sums))
+        # print('推酷——finished……')
+    except Exception as e:
+        print(e)
+        aa = [['error'] * 4]
+    print(re.sub('<.*?>', '', my_title), 'finished')
+    return [my_title, aa, column, iscover]
+
+
 def huxiu_pyld():
-    '''<a style="color:#000000;" href="http://www.huxiu.com/focus" title="虎嗅网是一个有视角的、个性化商业资讯与交流平台,核心关注对象是包括公众公司与创业型企业在内的一系列明星公司。部分重要内容在推酷有收录，其他焦点资讯仍值得看一下">虎嗅网-看点</a>'''
+    '''<a style="color:#000000;" target="_blank" href="http://www.huxiu.com/focus" title="虎嗅网是一个有视角的、个性化商业资讯与交流平台,核心关注对象是包括公众公司与创业型企业在内的一系列明星公司。部分重要内容在推酷有收录，其他焦点资讯仍值得看一下">虎嗅网-看点</a>'''
     my_title = huxiu_pyld.__doc__
     column = 6
     iscover = 1
@@ -126,12 +156,13 @@ def huxiu_pyld():
             './p/time/@title')[0].startswith(today1)]
 
         urls = [('http://www.huxiu.com/' + i.xpath('./a/@href')
-                 [0]).replace('//', '/').replace('http:/','http://') for i in items]
+                 [0]).replace('//', '/').replace('http:/', 'http://') for i in items]
         covers = [i.xpath('./a//img/@src')[0] + '!200x300' for i in items]
         titles = [i.xpath('./a//b/text()')[0] for i in items]
         sums = [i.xpath('./a//p[@class="p2"]/text()')[0].strip()
                 for i in items]
-        ptime = [i.xpath('./p//time/@title')[0] for i in items]
+        ptime = ['<div align="right"><br>%s</div>' %
+                 (i.xpath('./p//time/@title')[0]) for i in items]
 
         sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
         aa = list(zip(covers, titles, urls, sums))
@@ -144,7 +175,7 @@ def huxiu_pyld():
 
 
 def appinn_pyld():
-    '''<a style="color:#000000;" href="http://www.appinn.com/" title="分享免费、小巧、实用、有趣、绿色的软件。“我最喜欢的软件”栏目非常有价值，并且不定期更新优秀软件测评与推荐，值得一看。">小众软件（RSS）</a>'''
+    '''<a style="color:#000000;" target="_blank" href="http://www.appinn.com/" title="分享免费、小巧、实用、有趣、绿色的软件。“我最喜欢的软件”栏目非常有价值，并且不定期更新优秀软件测评与推荐，值得一看。">小众软件（RSS）</a>'''
     my_title = appinn_pyld.__doc__
     column = 7
     iscover = 1
@@ -168,7 +199,7 @@ def appinn_pyld():
 
 
 def iplaysoft_pyld():
-    '''<a style="color:#000000;" href="http://www.iplaysoft.com/" title="很有特色的软件博客!推荐精选实用的软件,并提供相当详细且精美的图文评测，有大量绿色、实用软件及资源下载。评测语气相对客观，是通过软件提升效率的一大门户。">异次元软件世界（RSS）</a>'''
+    '''<a style="color:#000000;" target="_blank" href="http://www.iplaysoft.com/" title="很有特色的软件博客!推荐精选实用的软件,并提供相当详细且精美的图文评测，有大量绿色、实用软件及资源下载。评测语气相对客观，是通过软件提升效率的一大门户。">异次元软件世界（RSS）</a>'''
     my_title = iplaysoft_pyld.__doc__
     column = 6
     iscover = 1
@@ -194,7 +225,7 @@ def iplaysoft_pyld():
 
 
 def tuicool_pyld():
-    '''<a style="color:#000000;" href="http://www.tuicool.com/ah" title="推酷网是面向IT人的个性化阅读网站,其背后的推荐引擎通过智能化的分析,向用户推荐感兴趣的科技资讯、产品设计、网络营销、技术文章等内容。它最大的收录价值在于，不但汇聚了当前主流IT资讯类网站的内容，并且在其中进行了精选，省去了浏览冷门知识的时间。">推酷-文章</a>'''
+    '''<a style="color:#000000;" target="_blank" href="http://www.tuicool.com/ah" title="推酷网是面向IT人的个性化阅读网站,其背后的推荐引擎通过智能化的分析,向用户推荐感兴趣的科技资讯、产品设计、网络营销、技术文章等内容。它最大的收录价值在于，不但汇聚了当前主流IT资讯类网站的内容，并且在其中进行了精选，省去了浏览冷门知识的时间。">推酷-文章</a>'''
     my_title = tuicool_pyld.__doc__
     column = 6
     iscover = 1
