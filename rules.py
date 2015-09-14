@@ -97,7 +97,7 @@ def chinaz_pyld():
             '//div[@class="topicsImgTxtBar aTabMain"]/ul[1]/li')
 
         items = [i for i in items if i.xpath(
-            './div/span[@class="date"]/text()')[0].startswith('09月12日')]
+            './div/span[@class="date"]/text()')[0].startswith(thisday.strftime(r'%myue%dri').replace('yue','月').replace('ri','日'))]
         titles = [i.xpath('./a//h5/text()')[0] for i in items]
         covers = [i.xpath('./a//img/@src')[0] for i in items]
         urls = [i.xpath('./a/@href')[0] for i in items]
