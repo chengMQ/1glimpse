@@ -81,7 +81,7 @@ def refresh_index():
             re.sub('<!--网址列表--start-->[\s\S]+?<!--网址列表--end-->', str1, scode))
 
 if __name__ == '__main__':
-    func_names = dict([i for i in getmembers(rules) if i[0].endswith('pyld')])
+    func_names = dict([i for i in getmembers(rules) if i[0].startswith('pyld')])
     func_list = sorted(func_names.keys())
     choose_func = [func_names[i] for i in func_list]
     pp = Pool(20)
