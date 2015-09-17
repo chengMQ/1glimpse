@@ -15,10 +15,10 @@ def pyld_36kr():
     iscover = 1
     try:
         r = requests.get('http://36kr.com/')
-        items = r.json()['posts']
+        # print(r.json())
+        items = [i for i in r.json()['posts'] if 'published_at' in i.keys()]
         items = [
             i for i in items if i['published_at'].startswith(thisday.strftime('%Y-%m-%d'))]
-
         urls = ['http://36kr.com/p/%s.html' % i['id'] for i in items]
         covers = [i['cover'] + '!feature' for i in items]
         titles = [i['title'] for i in items]
