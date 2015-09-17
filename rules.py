@@ -80,7 +80,8 @@ def pyld_youku():
                  i for i in xpath('//div[@class="yk-container"]/div[2]//span[@class="v-time"]/text()')]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
         result = list(zip(covers, titles, urls, sums))[:6]
-    except:
+    except Exception as e:
+        print(e)
         result = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, result, column, iscover]
@@ -191,7 +192,8 @@ def pyld_appinn():
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
         result = list(zip(covers, titles, urls, sums))[:14]
-    except:
+    except Exception as e:
+        print(e)
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
     print(re.sub('<.*?>', '', my_title), 'finished')
@@ -217,7 +219,8 @@ def pyld_iplaysoft():
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
         result = list(zip(covers, titles, urls, sums))[:6]
-    except:
+    except Exception as e:
+        print(e)
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
     print(re.sub('<.*?>', '', my_title), 'finished')
