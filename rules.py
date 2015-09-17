@@ -19,7 +19,7 @@ def pyld_36kr():
         items = [i for i in r.json()['posts'] if 'published_at' in i.keys()]
         items = [
             i for i in items if i['published_at'].startswith(thisday.strftime('%Y-%m-%d'))]
-        urls = ['http://36kr.com/p/%s.html' % i['id'] for i in items]
+        urls = ['http://36kr.com/p/%s.html' % i['url_code'] for i in items]
         covers = [i['cover'] + '!feature' for i in items]
         titles = [i['title'] for i in items]
         sums = [i['summary'] for i in items]
