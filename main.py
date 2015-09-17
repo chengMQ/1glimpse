@@ -15,14 +15,14 @@ def list2html(table_html):
     # 具体的数据转HTML过程
     website, list1, num, iscover = table_html
     head = "<div sitename='{}'><table style='table-layout:fixed;' cellspacing=2 cellpadding=3 width='100%' align='center'><tbody><p><h2 align='center'>{}</h2></p><hr>blablablabla</tbody></table></div>".format(
-        re.sub('<.*?>','',website), website)
+        re.sub('<.*?>', '', website), website)
     if not list1:
         return head.replace('blablablabla', '<div align="center">暂无新数据</div>')
     table1 = ''
     for i, each in enumerate(list1):
         cover, title, url, sums = each
         if not cover:
-            cover='error'
+            cover = 'error'
         if iscover:
             cover = '<img   style="width:100%;" height=200  src="{}" onerror="this.src=\'./empty.jpg\'" />'.format(
                 cover)
@@ -33,10 +33,11 @@ def list2html(table_html):
             table1 += '<tr style="width:100%;">'
         table1 += '<td style="background:#cccccc" VALIGN=TOP width="{width1}%"><a  href="{url}" target="_blank" style="font-size:18px;">{cover}<p><span style="color:#000000;"><strong>{title}</strong></span></p></a><span style="font-size:16px;">{sums}</span></td>'.format(
             cover=cover, url=url, title=title, sums=sums, width1=100 / num)
-        if n % num == 0 :
+        if n % num == 0:
             table1 += '</tr>'
-        if n == len(list1) and num>(n%num):
-            table1 = table1+ '<td width="16.666666666666668%" valign="TOP" style="background:#cccccc"></td>'*(num-n%num) +'</tr>'
+        if n == len(list1) and num > (n % num):
+            table1 = table1 + '<td width="16.666666666666668%" valign="TOP" style="background:#cccccc"></td>' * \
+                (num - n % num) + '</tr>'
     return head.replace('blablablabla', table1)
 
 
@@ -80,8 +81,26 @@ def refresh_index():
         f.write(
             re.sub('<!--网址列表--start-->[\s\S]+?<!--网址列表--end-->', str1, scode))
 
+
+def refresh_old():
+    # 刷新index.html
+    def list2index(each_item):
+        return '<li><a target="_blank" style="font-size:18px;" href="./pages/old/%s.html">%s</a></li>' % (each_item, each_item + 'blabla')
+    list0 = [list2index(i.replace('.html', '')) for i in sorted(
+        os.listdir('.\\pages\\old'), reverse=True) if i.endswith('html')]
+    list1 = ''.join([i.replace('[cover-yes]blabla', '')
+                     for i in list0 if '[cover-yes]' in i])
+    list2 = ''.join([i.replace('[cover-no]blabla', '')
+                     for i in list0 if '[cover-no]' in i])
+    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="font-size:35px;">有图版</strong></td><td width="50%"><strong style="font-size:35px;">无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
+         list1, list2)
+    # print(str1)
+    with open('old.html', 'w', encoding='utf-8') as f:
+        f.write(str1)
+
 if __name__ == '__main__':
-    func_names = dict([i for i in getmembers(rules) if i[0].startswith('pyld')])
+    func_names = dict(
+        [i for i in getmembers(rules) if i[0].startswith('pyld')])
     func_list = sorted(func_names.keys())
     choose_func = [func_names[i] for i in func_list]
     pp = Pool(20)
@@ -92,3 +111,4 @@ if __name__ == '__main__':
     withpics_to_file(ss)
     withoutpic_to_file(ss)
     refresh_index()
+    refresh_old()
