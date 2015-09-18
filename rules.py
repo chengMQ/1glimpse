@@ -116,13 +116,13 @@ def pyld_chinaz():
 def pyld_gankio():
     '''<a style="color:#000000;" href="http://gank.io/" title="每日分享妹子图和技术干货，还有供大家中午休息的休闲视频。妹子质量大约在70分以上，技术偏向于移动开发或前端，视频是真好东西，和“开眼”的逼格不一样。">干货集中营</a>'''
     my_title = pyld_gankio.__doc__
-    column = 6
+    column = 1  # 根据内容数量来划分
     iscover = 0
     try:
         r = requests.get('http://gank.io/')
         scode = re.findall('<div class="outlink">(.*?)/div>', r.text)[0]
         # print(scode)
-        items = ['<a href="{}"><img src="{}" width=100% /></a>'.format(i,i) for i in re.findall(
+        items = ['<a href="{}"><img src="{}" width=100% /></a>'.format(i, i) for i in re.findall(
             '<h1.*?<img.*?src="(.*?)".*?</h1>', scode)]
         # print(items)
         scode = re.sub('.*(<img.*?</h1>){1,}', '', scode)
@@ -133,7 +133,8 @@ def pyld_gankio():
 
         urls = [''] * len(sums)
         titles = [''] * len(sums)
-        covers = [''] * len(sums)
+        covers = [''] *len(sums)
+        column = len(sums)
         aa = list(zip(covers, titles, urls, sums))
         # print('推酷——finished……')
     except Exception as e:
