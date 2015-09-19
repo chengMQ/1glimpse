@@ -18,6 +18,7 @@ http://clericpy.github.io/
 
 ### 更新日志
 ```
+2015年9月20日 01:05:37 收录开眼-每日精选
 2015年9月19日 22:59:03 收录酱知-每日一蘸
 2015年9月15日 00:52:43 收录我一直想看的干货集中营
 2015年9月13日 03:26:10 收录36kr
@@ -95,57 +96,59 @@ pyld.py是平时测试用的，没有实际意义
 #####sourceName | channel | starturl | status
 
 ```
-36kr	首页	http://36kr.com/ 		  
-80s	电影	http://www.80s.cn/	√	  
-CSDN	APP/首页	暂无		  
-del.icio.us	待定	https://del.icio.us/		  
-Feedly	待定	http://feedly.com/		  
-Flipboard	待定	https://www.flipboard.cn/		  
-flitto	首页	https://www.flitto.com/content	#	  
-FreeBuf	待定	http://www.freebuf.com/		  
-GitHub	待定	https://github.com/		  
-HackNews	首页	https://news.ycombinator.com/		  
-InfoQ	待定	http://www.infoq.com/cn		  
-IT之家	首页	http://www.ithome.com/ 		  
-OSCHINA	Python	http://www.oschina.net/translate/tag/python   		  
-OSCHINA	首页	http://www.oschina.net/news  		  
-Python日报	今日	http://py.memect.com/ 		  
-Reddit	待定	https://www.reddit.com/		  
-Reeder	待定	http://www.reeder.com.tr/		  
-Stack Overflow	待定	http://stackoverflow.com/		  
-Unread	待定	http://supertop.co/unread/		  
-WooYun	待定	http://drops.wooyun.org/		  
-Zaker	待定	http://www.myzaker.com/index.html		  
-伯乐在线	python	http://top.jobbole.com/tag/python/		  
-博客园	Python	http://www.cnblogs.com/cate/python/  		  
-大眼仔	首页	http://www.dayanzai.me/ 		  
-电脑报	网页版	http://www.icpcw.com/Newspaper/Hot 		  
-电脑报	APP	暂无		  
-电影天堂	首页	http://www.dytt8.net/ 		  
-豆瓣一刻	首页或APP	http://moment.douban.com/app/		  
-干货集中营	首页	http://gank.io		  
-公众号	根据公众号	http://weixin.sogou.com/	#	  
-果壳	首页	http://www.guokr.com/ 		  
-果壳精选	APP	暂无		  
-虎嗅	首页	http://www.huxiu.com/ 	√	  
-极客头条	首页	http://geek.csdn.net/hotest		  
-脚本之家	Python	http://www.jb51.net/list/list_97_1.htm 		  
-今日头条	首页	http://toutiao.com/ 		  
-快递	单号	http://www.kiees.cn/ 	#	  
-绿色下载吧	文章	http://www.xiazaiba.com/news/index.html		  
-码农网	资讯	http://www.codeceo.com/article/category/news		  
-蟒周刊	首页	http://weekly.pychina.org/  		  
-慕课网	课程	http://www.imooc.com/course/list		  
-慕课网	文章	http://www.imooc.com/article 		  
-软件小品	首页	http://www.appcheers.com/ 		  
-深蓝阅读	待定	http://bluereader.org/		  
-推酷	文章	http://www.tuicool.com/ah/0/0?lang=1 	√	  
-小众软件	RSS	http://www.appinn.com/	√	  
-一点资讯	首页	http://www.yidianzixun.com/ 		  
-异次元软件	RSS	http://www.iplaysoft.com/ 	√	  
-站长之家	推荐	http://www.chinaz.com/		  
-知乎日报	首页	http://daily.zhihu.com/ 		  
-酱知	每日一蘸	http://www.jiangzhi.la/mryz/history_list.html		  
+36kr	首页	http://36kr.com/ 	√
+80s	电影	http://www.80s.cn/	√
+CSDN	APP/首页	暂无	
+del.icio.us	待定	https://del.icio.us/	
+Feedly	待定	http://feedly.com/	
+Flipboard	待定	https://www.flipboard.cn/	
+flitto	首页	https://www.flitto.com/content	#
+FreeBuf	待定	http://www.freebuf.com/	
+GitHub	待定	https://github.com/	
+HackNews	首页	https://news.ycombinator.com/	
+InfoQ	待定	http://www.infoq.com/cn	
+IT之家	首页	http://www.ithome.com/ 	
+OSCHINA	Python	http://www.oschina.net/translate/tag/python   	
+OSCHINA	首页	http://www.oschina.net/news  	
+Python日报	今日	http://py.memect.com/ 	
+Reddit	待定	https://www.reddit.com/	
+Reeder	待定	http://www.reeder.com.tr/	
+Stack Overflow	待定	http://stackoverflow.com/	
+Unread	待定	http://supertop.co/unread/	
+WooYun	待定	http://drops.wooyun.org/	
+Zaker	待定	http://www.myzaker.com/index.html	
+伯乐在线	python	http://top.jobbole.com/tag/python/	
+博客园	Python	http://www.cnblogs.com/cate/python/  	
+大眼仔	首页	http://www.dayanzai.me/ 	
+电脑报	网页版	http://www.icpcw.com/Newspaper/Hot 	
+电脑报	APP	暂无	
+电影天堂	首页	http://www.dytt8.net/ 	
+豆瓣一刻	首页或APP	http://moment.douban.com/app/	
+干货集中营	首页	http://gank.io	
+公众号	根据公众号	http://weixin.sogou.com/	#
+果壳	首页	http://www.guokr.com/ 	
+果壳精选	APP	暂无	
+虎嗅	首页	http://www.huxiu.com/ 	√
+极客头条	首页	http://geek.csdn.net/hotest	
+脚本之家	Python	http://www.jb51.net/list/list_97_1.htm 	
+今日头条	首页	http://toutiao.com/ 	
+快递	单号	http://www.kiees.cn/ 	#
+绿色下载吧	文章	http://www.xiazaiba.com/news/index.html	
+码农网	资讯	http://www.codeceo.com/article/category/news	
+蟒周刊	首页	http://weekly.pychina.org/  	
+慕课网	课程	http://www.imooc.com/course/list	
+慕课网	文章	http://www.imooc.com/article 	
+软件小品	首页	http://www.appcheers.com/ 	
+深蓝阅读	待定	http://bluereader.org/	
+推酷	文章	http://www.tuicool.com/ah/0/0?lang=1 	√
+小众软件	RSS	http://www.appinn.com/	√
+一点资讯	首页	http://www.yidianzixun.com/ 	
+异次元软件	RSS	http://www.iplaysoft.com/ 	√
+站长之家	推荐	http://www.chinaz.com/	
+知乎日报	首页	http://daily.zhihu.com/ 	
+酱知	每日一蘸	http://www.jiangzhi.la/mryz/history_list.html	√
+开眼	每日精选	http://www.wandoujia.com/eyepetizer/list.html	√
+  
 ```
 
 
