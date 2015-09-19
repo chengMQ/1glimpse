@@ -8,6 +8,29 @@ from html import unescape
 thisday = datetime.datetime.today()
 
 
+
+def pyld_jiangzhi():
+    '''<a style="color:#000000;" href="http://www.jiangzhi.la/mryz/history_list.html" title="专为学生打造的第一款知识互动百科应用!精选词条百科开拓眼界,话题分类投你所好,脑洞大开思维碰撞,还能随时随地在线学习,用知识传播正能量!对于我这种懒得看百科的来说，看看这个也不错">酱知-每日一蘸</a>'''
+    my_title = pyld_jiangzhi.__doc__
+    column = 5
+    iscover = 1
+    try:
+        r = requests.get(
+            'http://www.jiangzhi.la/v1/webservice/query/mryz/history')
+        items = r.json()[:column]
+        titles = ['第%s期  %s'%(i['seqNum'],i['topicName']) for i in items]
+        covers = [i['bannerPic'] for i in items]
+        urls = [i['shareUrl'] for i in items]
+        desc = ['']*column
+
+        aa = list(zip(covers, titles, urls, desc))
+        # print('推酷——finished……')
+    except Exception as e:
+        print(e)
+        aa = [['error'] * 4]
+    print(re.sub('<.*?>', '', my_title), 'finished')
+    return [my_title, aa, column, iscover]
+
 def pyld_36kr():
     '''<a style="color:#000000;" target="_blank" href="http://36kr.com/" title="36氪是一个关注互联网创业的科技博客，旨在帮助互联网创业者实现创业梦。我们相信每个人都可以像来氪星人超人那样强大无比。还行吧，比没有强">36kr-首页</a>'''
     my_title = pyld_36kr.__doc__
