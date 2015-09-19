@@ -11,6 +11,7 @@ thisday = datetime.datetime.today()
 def pyld_36kr():
     '''<a style="color:#000000;" target="_blank" href="http://36kr.com/" title="36氪是一个关注互联网创业的科技博客，旨在帮助互联网创业者实现创业梦。我们相信每个人都可以像来氪星人超人那样强大无比。还行吧，比没有强">36kr-首页</a>'''
     my_title = pyld_36kr.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 6
     iscover = 1
     try:
@@ -30,6 +31,7 @@ def pyld_36kr():
         # print('推酷——finished……')
     except Exception as e:
         print(e)
+        input('%s 出错' % title_clean)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, aa, column, iscover]
@@ -38,6 +40,7 @@ def pyld_36kr():
 def pyld_movie80s():
     '''<a style="color:#000000;" target="_blank" href="http://www.80s.cn/" title="专业提供MP4格式的手机视频下载,电影,电视剧,动漫,综艺,音乐短片，平时下电影的去处">80s-热门电影</a>'''
     my_title = pyld_movie80s.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 11
     iscover = 1
     try:
@@ -54,6 +57,7 @@ def pyld_movie80s():
         result = list(zip(covers, titles, urls, sums))[:22]
     except Exception as e:
         print(e)
+        input('%s 出错' % title_clean)
         result = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, result, column, iscover]
@@ -62,6 +66,7 @@ def pyld_movie80s():
 def pyld_youku():
     '''<a style="color:#000000;" target="_blank" href="http://www.youku.com/" title="视频服务平台,提供视频播放,视频发布,视频搜索,视频分享...对于这个网站，不想多做评论">优酷-热门</a>'''
     my_title = pyld_youku.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 7
     iscover = 1
     try:
@@ -82,6 +87,7 @@ def pyld_youku():
         result = list(zip(covers, titles, urls, sums))[:6]
     except Exception as e:
         print(e)
+        input('%s 出错' % title_clean)
         result = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, result, column, iscover]
@@ -90,6 +96,7 @@ def pyld_youku():
 def pyld_chinaz():
     '''<a style="color:#000000;" target="_blank" href="http://www.chinaz.com/" title="站长之家(中国站长站)为个人站长与企业网络提供全面的站长资讯、最新最全的源代码程序下载、海量建站素材、强大的搜索优化辅助工具、网络产品设计与运营理念以及一站式网络解决方案。做网站的应该都用过。">站长之家-首页推荐</a>'''
     my_title = pyld_chinaz.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 6
     iscover = 1
     try:
@@ -108,6 +115,7 @@ def pyld_chinaz():
         # print('推酷——finished……')
     except Exception as e:
         print(e)
+        input('%s 出错' % title_clean)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, aa, column, iscover]
@@ -116,6 +124,7 @@ def pyld_chinaz():
 def pyld_gankio():
     '''<a style="color:#000000;" href="http://gank.io/" title="每日分享妹子图和技术干货，还有供大家中午休息的休闲视频。妹子质量大约在70分以上，技术偏向于移动开发或前端，视频是真好东西，和“开眼”的逼格不一样。">干货集中营</a>'''
     my_title = pyld_gankio.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 1  # 根据内容数量来划分
     iscover = 0
     try:
@@ -133,12 +142,13 @@ def pyld_gankio():
 
         urls = [''] * len(sums)
         titles = [''] * len(sums)
-        covers = [''] *len(sums)
+        covers = [''] * len(sums)
         column = len(sums)
         aa = list(zip(covers, titles, urls, sums))
         # print('推酷——finished……')
     except Exception as e:
         print(e)
+        input('%s 出错' % title_clean)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, aa, column, iscover]
@@ -147,6 +157,7 @@ def pyld_gankio():
 def pyld_huxiu():
     '''<a style="color:#000000;" target="_blank" href="http://www.huxiu.com/focus" title="虎嗅网是一个有视角的、个性化商业资讯与交流平台,核心关注对象是包括公众公司与创业型企业在内的一系列明星公司。部分重要内容在推酷有收录，其他焦点资讯仍值得看一下">虎嗅网-看点</a>'''
     my_title = pyld_huxiu.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 6
     iscover = 1
     try:
@@ -171,6 +182,7 @@ def pyld_huxiu():
         # print('推酷——finished……')
     except Exception as e:
         print(e)
+        input('%s 出错' % title_clean)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, aa, column, iscover]
@@ -179,6 +191,7 @@ def pyld_huxiu():
 def pyld_appinn():
     '''<a style="color:#000000;" target="_blank" href="http://www.appinn.com/" title="分享免费、小巧、实用、有趣、绿色的软件。“我最喜欢的软件”栏目非常有价值，并且不定期更新优秀软件测评与推荐，值得一看。">小众软件（RSS）</a>'''
     my_title = pyld_appinn.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 7
     iscover = 1
     try:
@@ -195,6 +208,7 @@ def pyld_appinn():
         result = list(zip(covers, titles, urls, sums))[:14]
     except Exception as e:
         print(e)
+        input('%s 出错' % title_clean)
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
     print(re.sub('<.*?>', '', my_title), 'finished')
@@ -204,6 +218,7 @@ def pyld_appinn():
 def pyld_iplaysoft():
     '''<a style="color:#000000;" target="_blank" href="http://www.iplaysoft.com/" title="很有特色的软件博客!推荐精选实用的软件,并提供相当详细且精美的图文评测，有大量绿色、实用软件及资源下载。评测语气相对客观，是通过软件提升效率的一大门户。">异次元软件世界（RSS）</a>'''
     my_title = pyld_iplaysoft.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 6
     iscover = 1
     try:
@@ -222,6 +237,7 @@ def pyld_iplaysoft():
         result = list(zip(covers, titles, urls, sums))[:6]
     except Exception as e:
         print(e)
+        input('%s 出错' % title_clean)
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
     print(re.sub('<.*?>', '', my_title), 'finished')
@@ -231,6 +247,7 @@ def pyld_iplaysoft():
 def pyld_tuicool():
     '''<a style="color:#000000;" target="_blank" href="http://www.tuicool.com/ah" title="推酷网是面向IT人的个性化阅读网站,其背后的推荐引擎通过智能化的分析,向用户推荐感兴趣的科技资讯、产品设计、网络营销、技术文章等内容。它最大的收录价值在于，不但汇聚了当前主流IT资讯类网站的内容，并且在其中进行了精选，省去了浏览冷门知识的时间。">推酷-文章</a>'''
     my_title = pyld_tuicool.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 6
     iscover = 1
     try:
@@ -272,6 +289,7 @@ def pyld_tuicool():
         # print('推酷——finished……')
     except Exception as e:
         print(e)
+        input('%s 出错' % title_clean)
         aa = [['error'] * 4]
     print(re.sub('<.*?>', '', my_title), 'finished')
     return [my_title, aa, column, iscover]
