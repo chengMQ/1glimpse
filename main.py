@@ -24,7 +24,7 @@ def list2html(table_html):
         if not cover:
             cover = 'error'
         if iscover:
-            cover = '<img   width=500 height=100%  src="{}" onerror="this.src=\'./empty.jpg\'" />'.format(
+            cover = '<img   width=500  src="{}" onerror="this.src=\'./empty.jpg\'" />'.format(
                 cover)
         else:
             cover = ''
