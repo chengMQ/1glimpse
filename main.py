@@ -31,7 +31,7 @@ def list2html(table_html):
         n = i + 1
         if (n - 1) % num == 0:
             table1 += '<tr style="width:100%;">'
-        table1 += '<td style="background:#cccccc" VALIGN=TOP width="{width1}%"><a  href="{url}" target="_blank" style="font-size:18px;">{cover}<p><span style="color:#000000;"><strong>{title}</strong></span></p></a><span style="font-size:16px;">{sums}</span></td>'.format(
+        table1 += '<td style="background:#cccccc" VALIGN=TOP width="{width1}%"><a  href="{url}" target="_blank" style="">{cover}<p><span style="color:#000000;"><strong>{title}</strong></span></p></a><span style="">{sums}</span></td>'.format(
             cover=cover, url=url, title=title, sums=sums, width1=100 / num)
         if n % num == 0:
             table1 += '</tr>'
@@ -46,7 +46,7 @@ def withpics_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles, this_time) + '<hr>'.join(
+        scode = '<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style=""><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles, this_time) + '<hr>'.join(
             ss)
         f.write(scode)
 
@@ -57,7 +57,7 @@ def withoutpic_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-no].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles, this_time) + '<hr>'.join(
+        scode = '<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style=""><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles, this_time) + '<hr>'.join(
             ss)
         f.write(scode)
 
@@ -65,14 +65,14 @@ def withoutpic_to_file(ss):
 def refresh_index():
     # 刷新index.html
     def list2index(each_item):
-        return '<li><a target="_blank" style="font-size:18px;" href="./pages/%s.html">%s</a></li>' % (each_item, each_item + 'blabla')
+        return '<li><a target="_blank" style="" href="./pages/%s.html">%s</a></li>' % (each_item, each_item + 'blabla')
     list0 = [list2index(i.replace('.html', '')) for i in sorted(
         os.listdir('.\\pages'), reverse=True) if i.endswith('html')]
     list1 = ''.join([i.replace('[cover-yes]blabla', '')
                      for i in list0 if '[cover-yes]' in i])
     list2 = ''.join([i.replace('[cover-no]blabla', '')
                      for i in list0 if '[cover-no]' in i])
-    str1 = '<!--网址列表--start--><p style="font-size:18px;">最后更新：{}</p><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="font-size:35px;">有图版</strong></td><td width="50%"><strong style="font-size:35px;">无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
+    str1 = '<!--网址列表--start--><p style="">最后更新：{}</p><p style=""><strong>当前订阅列表：</strong>{}</p><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="">有图版</strong></td><td width="50%"><strong style="">无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
         this_time, titles, list1, list2)
     # print(str1)
     with open('index.html', 'r', encoding='utf-8') as f:
@@ -85,14 +85,14 @@ def refresh_index():
 def refresh_old():
     # 刷新index.html
     def list2index(each_item):
-        return '<li><a target="_blank" style="font-size:18px;" href="./pages/old/%s.html">%s</a></li>' % (each_item, each_item + 'blabla')
+        return '<li><a target="_blank" style="" href="./pages/old/%s.html">%s</a></li>' % (each_item, each_item + 'blabla')
     list0 = [list2index(i.replace('.html', '')) for i in sorted(
         os.listdir('.\\pages\\old'), reverse=True) if i.endswith('html')]
     list1 = ''.join([i.replace('[cover-yes]blabla', '')
                      for i in list0 if '[cover-yes]' in i])
     list2 = ''.join([i.replace('[cover-no]blabla', '')
                      for i in list0 if '[cover-no]' in i])
-    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="font-size:30px;">有图版</strong></td><td width="50%"><strong style="font-size:30px;">无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
+    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="">有图版</strong></td><td width="50%"><strong style="">无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
         list1, list2)
     # print(str1)
     with open('old.html', 'w', encoding='utf-8') as f:
