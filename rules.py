@@ -19,7 +19,7 @@ def pyld_kaiyan():
         titles = [i['title'] for i in items]
         covers = [''] * len(titles)
         urls = [i['rawWebUrl'] for i in items]
-        desc = ['<video width=100% src="{}" controls="controls"><a href="{}">您的浏览器不支持 video 标签</video></a><p>{}</p>'.format(
+        desc = ['<video height=200 src="{}" controls="controls"><a href="{}">您的浏览器不支持 video 标签</video></a><p>{}</p>'.format(
             i['playUrl'], i['rawWebUrl'], i['description']) for i in items]
 
         aa = list(zip(covers, titles, urls, desc))
