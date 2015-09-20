@@ -6,7 +6,6 @@ import os
 import rules
 from inspect import getmembers
 
-
 this_day = datetime.datetime.now().strftime('%Y-%m-%d')
 this_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
