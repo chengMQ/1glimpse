@@ -13,7 +13,6 @@ this_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 def list2html(table_html):
     # 具体的数据转HTML过程
     website, list1, num, iscover = table_html
-    num=1
     head = "<div sitename='{}'><table style='table-layout:fixed;' cellspacing=2 cellpadding=3 width='100%' align='center'><tbody><p><h2 align='center'>{}</h2></p><hr>blablablabla</tbody></table></div>".format(
         re.sub('<.*?>', '', website), website)
     if not list1:
@@ -24,7 +23,7 @@ def list2html(table_html):
         if not cover:
             cover = 'error'
         if iscover:
-            cover = '<img   width=100%  src="{}" onerror="this.src=\'./empty.jpg\'" />'.format(
+            cover = '<img   style="width:100%;" height=200  src="{}" onerror="this.src=\'./empty.jpg\'" />'.format(
                 cover)
         else:
             cover = ''
@@ -46,7 +45,7 @@ def withpics_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles, this_time) + '<hr>'.join(
+        scode = '<meta charset="utf-8"><meta name=”viewport” content=”target-densitydpi=device-dpi” /><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles, this_time) + '<hr>'.join(
             ss)
         f.write(scode)
 
@@ -57,7 +56,7 @@ def withoutpic_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-no].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles, this_time) + '<hr>'.join(
+        scode = '<meta charset="utf-8"><meta name=”viewport” content=”target-densitydpi=device-dpi” /><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles, this_time) + '<hr>'.join(
             ss)
         f.write(scode)
 
