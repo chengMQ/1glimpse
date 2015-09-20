@@ -322,7 +322,7 @@ def pyld_tuicool():
             # covers = [i[0].replace(
             #     '!middle', '') for i in covers if i else '']
             #.replace('!middle', '')
-            covers = list(map(lambda x: x[0] if x else '', covers))
+            covers = list(map(lambda x: re.sub('!middle$','',x[0]) if x else '', covers))
             titles = xpath('//a[@class="article-list-title"]/text()')
             sums = [i.strip()
                     for i in xpath('//div[@class="article_cut"]/text()')]
