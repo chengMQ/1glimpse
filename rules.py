@@ -198,6 +198,7 @@ def pyld_gankio():
               (i[0], i[1])for i in re.findall('<h1.*?>(.*?)</h1>(.*?</ul>)', scode)]
         # print(ss)
         sums = items + ss
+        sums=[re.sub('<ul.*?>','<ul>',i) for i in sums]
 
         urls = [''] * len(sums)
         titles = [''] * len(sums)
