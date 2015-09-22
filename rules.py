@@ -26,7 +26,7 @@ def pyld_kaiyan():
         aa = list(zip(covers, titles, urls, desc))
         # print('推酷——finished……')
     except Exception as e:
-        print(e)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         aa = [['error'] * 4]
     runtime1 = round(time.time() - starttime,3)
     print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
@@ -51,7 +51,7 @@ def pyld_jiangzhi():
         aa = list(zip(covers, titles, urls, desc))
         # print('推酷——finished……')
     except Exception as e:
-        print(e)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         aa = [['error'] * 4]
     runtime1 = round(time.time() - starttime,3)
     print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
@@ -81,8 +81,7 @@ def pyld_36kr():
         aa = list(zip(covers, titles, urls, sums))
         # print('推酷——finished……')
     except Exception as e:
-        print(e)
-        input('%s 出错' % title_clean)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         aa = [['error'] * 4]
     runtime1 = round(time.time() - starttime,3)
     print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
@@ -109,8 +108,7 @@ def pyld_movie80s():
                 i for i in xpath('//ul[@class="me1 clearfix"]/li/a/@href')]
         result = list(zip(covers, titles, urls, sums))[:22]
     except Exception as e:
-        print(e)
-        input('%s 出错' % title_clean)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         result = [['error'] * 4]
     runtime1 = round(time.time() - starttime,3)
     print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
@@ -142,8 +140,7 @@ def pyld_youku():
         sums = [''.join(i) for i in list(zip(sums, ptime))]
         result = list(zip(covers, titles, urls, sums))[:]
     except Exception as e:
-        print(e)
-        input('%s 出错' % title_clean)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         result = [['error'] * 4]
     runtime1 = round(time.time() - starttime,3)
     print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
@@ -173,8 +170,7 @@ def pyld_chinaz():
         aa = list(zip(covers, titles, urls, sums))
         # print('推酷——finished……')
     except Exception as e:
-        print(e)
-        input('%s 出错' % title_clean)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         aa = [['error'] * 4]
     runtime1 = round(time.time() - starttime,3)
     print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
@@ -209,8 +205,7 @@ def pyld_gankio():
         aa = list(zip(covers, titles, urls, sums))
         # print('推酷——finished……')
     except Exception as e:
-        print(e)
-        input('%s 出错' % title_clean)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         aa = [['error'] * 4]
     runtime1 = round(time.time() - starttime,3)
     print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
@@ -227,7 +222,7 @@ def pyld_huxiu():
     try:
         r = requests.get('http://m.huxiu.com/focus/')
         scode = r.content.decode('utf-8')
-        items = fromstring(scode).xpath('//ul[@class="ul-list focus-list"]/li')
+        items = fromstring(scode).xpath('//ul[@class="ul-list focus-list"]/li[not(@class)]')
         today1 = thisday.strftime('%Y-%m-%d')
         items = [i for i in items if i.xpath(
             './p/time/@title')[0].startswith(today1)]
@@ -245,8 +240,7 @@ def pyld_huxiu():
         aa = list(zip(covers, titles, urls, sums))
         # print('推酷——finished……')
     except Exception as e:
-        print(e)
-        input('%s 出错' % title_clean)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         aa = [['error'] * 4]
     runtime1 = round(time.time() - starttime,3)
     print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
@@ -273,8 +267,7 @@ def pyld_appinn():
         sums = [''.join(i) for i in list(zip(sums, ptime))]
         result = list(zip(covers, titles, urls, sums))[:14]
     except Exception as e:
-        print(e)
-        input('%s 出错' % title_clean)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
     runtime1 = round(time.time() - starttime,3)
@@ -304,8 +297,7 @@ def pyld_iplaysoft():
         sums = [''.join(i) for i in list(zip(sums, ptime))]
         result = list(zip(covers, titles, urls, sums))[:6]
     except Exception as e:
-        print(e)
-        input('%s 出错' % title_clean)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
     runtime1 = round(time.time() - starttime,3)
@@ -359,8 +351,7 @@ def pyld_tuicool():
             aa += list(zip(covers, titles, urls, sums))
         # print('推酷——finished……')
     except Exception as e:
-        print(e)
-        input('%s 出错' % title_clean)
+        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
         aa = [['error'] * 4]
     runtime1 = round(time.time() - starttime,3)
     print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
