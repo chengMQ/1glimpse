@@ -121,8 +121,9 @@ def pyld_youku():
     '''<a style="color:#000000;" target="_blank" href="http://www.youku.com/" title="视频服务平台,提供视频播放,视频发布,视频搜索,视频分享...对于这个网站，不想多做评论">优酷-热门</a>'''
     starttime = time.time()
     my_title = pyld_youku.__doc__
+    # column = 7
     title_clean = re.sub('<.*?>', '', my_title)
-    column = 7
+    
     iscover = 1
     try:
         r = requests.get('http://www.youku.com/?screen=phone', headers={
@@ -139,13 +140,14 @@ def pyld_youku():
         ptime = ['<div align="right"><br>%s</div>' %
                  i for i in xpath('//div[@class="yk-container"]/div[2]//span[@class="v-time"]/text()')]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
-        result = list(zip(covers, titles, urls, sums))[:6]
+        result = list(zip(covers, titles, urls, sums))[:]
     except Exception as e:
         print(e)
         input('%s 出错' % title_clean)
         result = [['error'] * 4]
     runtime1 = round(time.time() - starttime,3)
     print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    column = len(titles)
     return [my_title, result, column, iscover]
 
 
