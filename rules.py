@@ -12,6 +12,7 @@ def pyld_kaiyan():
     '''<a style="color:#000000;" target="_blank" href="http://www.wandoujia.com/eyepetizer/list.html" title="开眼，是豌豆荚出品的一款精品短视频日报应用。在这里，我们会每天为你推荐精心挑选的短视频，它们可能是创意惊人的大牌广告，可能是鲜为人知的美丽风景，也可能是专业的美食攻略或有品位的穿衣指导。挺多“外面”的视频……话说，流量预警啊">开眼-每日精选</a>'''
     starttime = time.time()
     my_title = pyld_kaiyan.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 5
     iscover = 0
     try:
@@ -24,12 +25,12 @@ def pyld_kaiyan():
             i['playUrl'], i['rawWebUrl'], i['description']) for i in items]
 
         aa = list(zip(covers, titles, urls, desc))
-        # print('推酷——finished……')
+
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
 
 
@@ -37,6 +38,7 @@ def pyld_jiangzhi():
     '''<a style="color:#000000;" target="_blank" href="http://www.jiangzhi.la/mryz/history_list.html" title="专为学生打造的第一款知识互动百科应用!精选词条百科开拓眼界,话题分类投你所好,脑洞大开思维碰撞,还能随时随地在线学习,用知识传播正能量!对于我这种懒得看百科的来说，看看这个也不错">酱知-每日一蘸</a>'''
     starttime = time.time()
     my_title = pyld_jiangzhi.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
     column = 5
     iscover = 1
     try:
@@ -49,16 +51,16 @@ def pyld_jiangzhi():
         desc = [''] * column
 
         aa = list(zip(covers, titles, urls, desc))
-        # print('推酷——finished……')
+
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
 
 
-def pyld_36kr():
+def _pyld_36kr():
     '''<a style="color:#000000;" target="_blank" href="http://36kr.com/" title="36氪是一个关注互联网创业的科技博客，旨在帮助互联网创业者实现创业梦。我们相信每个人都可以像来氪星人超人那样强大无比。还行吧，比没有强">36kr-首页</a>'''
     starttime = time.time()
     my_title = pyld_36kr.__doc__
@@ -79,12 +81,12 @@ def pyld_36kr():
                  for i in items]
         sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
         aa = list(zip(covers, titles, urls, sums))
-        # print('推酷——finished……')
+
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
 
 
@@ -108,10 +110,10 @@ def pyld_movie80s():
                 i for i in xpath('//ul[@class="me1 clearfix"]/li/a/@href')]
         result = list(zip(covers, titles, urls, sums))[:22]
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         result = [['error'] * 4]
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, result, column, iscover]
 
 
@@ -121,7 +123,7 @@ def pyld_youku():
     my_title = pyld_youku.__doc__
     # column = 7
     title_clean = re.sub('<.*?>', '', my_title)
-    
+
     iscover = 1
     try:
         r = requests.get('http://www.youku.com/?screen=phone', headers={
@@ -140,10 +142,10 @@ def pyld_youku():
         sums = [''.join(i) for i in list(zip(sums, ptime))]
         result = list(zip(covers, titles, urls, sums))[:]
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         result = [['error'] * 4]
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     column = len(titles)
     return [my_title, result, column, iscover]
 
@@ -168,12 +170,12 @@ def pyld_chinaz():
         sums = [i.xpath('./a//p/text()')[0] for i in items]
 
         aa = list(zip(covers, titles, urls, sums))
-        # print('推酷——finished……')
+
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
 
 
@@ -196,19 +198,19 @@ def pyld_gankio():
               (i[0], i[1])for i in re.findall('<h1.*?>(.*?)</h1>(.*?</ul>)', scode)]
         # print(ss)
         sums = items + ss
-        sums=[re.sub('<ul.*?>','<ul>',i) for i in sums]
+        sums = [re.sub('<ul.*?>', '<ul>', i) for i in sums]
 
         urls = [''] * len(sums)
         titles = [''] * len(sums)
         covers = [''] * len(sums)
         column = len(sums)
         aa = list(zip(covers, titles, urls, sums))
-        # print('推酷——finished……')
+
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
 
 
@@ -222,7 +224,8 @@ def pyld_huxiu():
     try:
         r = requests.get('http://m.huxiu.com/focus/')
         scode = r.content.decode('utf-8')
-        items = fromstring(scode).xpath('//ul[@class="ul-list focus-list"]/li[not(@class)]')
+        items = fromstring(scode).xpath(
+            '//ul[@class="ul-list focus-list"]/li[not(@class)]')
         today1 = thisday.strftime('%Y-%m-%d')
         items = [i for i in items if i.xpath(
             './p/time/@title')[0].startswith(today1)]
@@ -238,12 +241,12 @@ def pyld_huxiu():
 
         sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
         aa = list(zip(covers, titles, urls, sums))
-        # print('推酷——finished……')
+
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
 
 
@@ -267,11 +270,11 @@ def pyld_appinn():
         sums = [''.join(i) for i in list(zip(sums, ptime))]
         result = list(zip(covers, titles, urls, sums))[:14]
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, result, column, iscover]
 
 
@@ -297,15 +300,15 @@ def pyld_iplaysoft():
         sums = [''.join(i) for i in list(zip(sums, ptime))]
         result = list(zip(covers, titles, urls, sums))[:6]
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         result = [['error'] * 4]
         # print('异次元软件世界——finished……')
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, result, column, iscover]
 
 
-def pyld_tuicool():
+def _pyld_tuicool():
     '''<a style="color:#000000;" target="_blank" href="http://www.tuicool.com/ah" title="推酷网是面向IT人的个性化阅读网站,其背后的推荐引擎通过智能化的分析,向用户推荐感兴趣的科技资讯、产品设计、网络营销、技术文章等内容。它最大的收录价值在于，不但汇聚了当前主流IT资讯类网站的内容，并且在其中进行了精选，省去了浏览冷门知识的时间。">推酷-文章</a>'''
     starttime = time.time()
     my_title = pyld_tuicool.__doc__
@@ -349,12 +352,12 @@ def pyld_tuicool():
             # print(ptime)
             sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
             aa += list(zip(covers, titles, urls, sums))
-        # print('推酷——finished……')
+
     except Exception as e:
-        print('%s  %s'%(re.sub('<.*?>', '', my_title),e))
+        print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
-    runtime1 = round(time.time() - starttime,3)
-    print(re.sub('<.*?>', '', my_title), 'finished in %s seconds' % runtime1)
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
 
 
