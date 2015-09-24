@@ -60,8 +60,8 @@ def pyld_jiangzhi():
     return [my_title, aa, column, iscover]
 
 
-def _pyld_36kr():
-    '''<a style="color:#000000;" target="_blank" href="http://36kr.com/" title="36氪是一个关注互联网创业的科技博客，旨在帮助互联网创业者实现创业梦。我们相信每个人都可以像来氪星人超人那样强大无比。还行吧，比没有强">36kr-首页</a>'''
+def pyld_36kr():
+    '''<a style="color:#000000;" target="_blank" href="http://36kr.com/" title="36氪是一个关注互联网创业的科技博客，旨在帮助互联网创业者实现创业梦。我们相信每个人都可以像来氪星人超人那样强大无比。还行吧，有质有量还有料">36kr-首页</a>'''
     starttime = time.time()
     my_title = pyld_36kr.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
@@ -69,19 +69,22 @@ def _pyld_36kr():
     iscover = 1
     try:
         r = requests.get('http://36kr.com/')
-        # print(r.json())
-        items = [i for i in r.json()['posts'] if 'published_at' in i.keys()]
-        items = [
-            i for i in items if i['published_at'].startswith(thisday.strftime('%Y-%m-%d'))]
-        urls = ['http://36kr.com/p/%s.html' % i['url_code'] for i in items]
-        covers = [i['cover'] + '!feature' for i in items]
-        titles = [i['title'] for i in items]
-        sums = [i['summary'] for i in items]
-        ptime = ['<div align="right"><br>%s</div>' % re.sub('\..*', '', i['published_at'].replace('T', ' '))
+        xpath1 = fromstring(r.text).xpath
+        items = xpath1('//article')
+        newurl = 'http://36kr.com' + \
+            xpath1('//a[@id="info_flows_next_link"]/@href')[0]
+        r = requests.get(newurl)
+        items = items + fromstring(r.text).xpath('//article')
+        items = [i for i in items if i.xpath('./div/div/span/time/@datetime')]
+        urls = ['http://36kr.com'+i.xpath('./a/@href')[0] for i in items]
+        covers = [i.xpath('./a/@data-lazyload')[0] for i in items]
+        titles = [i.xpath('./div/a/text()')[0] for i in items]
+        sums = [i.xpath('./div/div[@class="brief"]/text()')[0] for i in items]
+        ptime = ['<div align="right"><br>%s</div>' % re.sub(' \+\d\d\d\d$', '', i.xpath('./div/div/span/time/@datetime')[0])
                  for i in items]
         sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
         aa = list(zip(covers, titles, urls, sums))
-
+        # print('推酷——finished……')
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
