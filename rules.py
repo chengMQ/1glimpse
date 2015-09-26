@@ -8,6 +8,35 @@ from html import unescape
 thisday = datetime.datetime.today()
 
 
+def pyld_jiandan():
+    '''<a style="color:#000000;" target="_blank" href="http://jandan.net/" title="地球上没有新鲜事……Whatever...">煎蛋-首页</a>'''
+    starttime = time.time()
+    my_title = pyld_jiandan.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
+    column = 6
+    iscover = 1
+    try:
+        r = requests.get('http://jandan.net/', headers={
+                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0'})
+        scode = r.content.decode('utf-8')
+        items = fromstring(scode).xpath('//div[@class="post f list-post"]')
+        covers = [i.xpath(
+            './div[@class="thumbs_b"]/a/img/@src|./div[@class="thumbs_b"]/a/img/@data-original')[0] for i in items]
+        urls = [i.xpath('./div[@class="thumbs_b"]/a/@href')[0] for i in items]
+        titles = [i.xpath('./div[@class="indexs"]/h2/a/text()')[0]
+                  for i in items]
+        sums = [re.sub('<.*?>|\s{4,}', '', i).strip()
+                for i in re.findall('<h2>[\s\S]*?</h2>[\s\S]*?<a[\s\S]*?>([\s\S]*?)<a', scode)]
+        aa = list(zip(covers, titles, urls, sums))
+
+    except Exception as e:
+        print('%s  %s' % (title_clean, e))
+        aa = [['error'] * 4]
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
+    return [my_title, aa, column, iscover]
+
+
 def pyld_36kr_next():
     '''<a style="color:#000000;" target="_blank" href="http://www.next.36kr.com/posts" title="36氪是一个关注互联网创业的科技博客，旗下NEXT栏目的宗旨是不错过任何一个新产品。不错，简洁明了信息量大">36kr-NEXT</a>'''
     starttime = time.time()
@@ -27,7 +56,7 @@ def pyld_36kr_next():
         sums = [i.xpath('./div/div[@class="product-url"]/span/text()')[0]
                 for i in items]
         aa = list(zip(covers, titles, urls, sums))
-        # print('推酷——finished……')
+
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
@@ -49,9 +78,9 @@ def pyld_kaiyan():
         titles = [i['title'] for i in items]
         covers = [''] * len(titles)
         urls = [i['rawWebUrl'] for i in items]
-        desc = ['<video height=200 src="{}" controls="controls"><a href="{}">您的浏览器不支持 video 标签</video></a><p>{}</p>'.format(
+        desc = ['<video height=200 width=100% src="{}" controls="controls"><a href="{}">您的浏览器不支持 video 标签</video></a><p>{}</p>'.format(
             i['playUrl'], i['rawWebUrl'], i['description']) for i in items]
-
+        column = len(titles)
         aa = list(zip(covers, titles, urls, desc))
 
     except Exception as e:
@@ -112,7 +141,7 @@ def pyld_36kr():
                  for i in items]
         sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
         aa = list(zip(covers, titles, urls, sums))
-        # print('推酷——finished……')
+
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
