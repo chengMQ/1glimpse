@@ -82,8 +82,8 @@ def refresh_index():
                      for i in list0 if '[cover-yes-mobile]' in i])
     list4 = ''.join([i.replace('[cover-no-mobile]blabla', '')
                      for i in list0 if '[cover-no-mobile]' in i])
-    str1 = '<!--网址列表--start--><p style="font-size:18px;">最后更新：{}</p><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="font-size:30px;">PC-有图版</strong></td><td width="25%"><strong style="font-size:30px;">PC-无图版</strong></td><td width="25%"><strong style="font-size:30px;">手机-有图版</strong></td><td width="25%"><strong style="font-size:30px;">手机-无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
-        this_time, titles, list1, list2,list3,list4)
+    str1 = '<!--网址列表--start--><p style="font-size:18px;">最后更新：{}</p><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="25%"><strong style="font-size:30px;">手机-有图版</strong></td><td width="25%"><strong style="font-size:30px;">手机-无图版</strong></td><td width="9999"><strong style="font-size:30px;">PC-有图版</strong></td><td width="25%"><strong style="font-size:30px;">PC-无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
+        this_time, titles, list3,list4,list1,list2)
     # print(str1)
     with open('index.html', 'r', encoding='utf-8') as f:
         scode = f.read()
@@ -106,8 +106,8 @@ def refresh_old():
                      for i in list0 if '[cover-yes-mobile]' in i])
     list4 = ''.join([i.replace('[cover-no-mobile]blabla', '')
                      for i in list0 if '[cover-no-mobile]' in i])
-    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="font-size:30px;">PC-有图版</strong></td><td width="25%"><strong style="font-size:30px;">PC-无图版</strong></td><td width="25%"><strong style="font-size:30px;">手机-有图版</strong></td><td width="25%"><strong style="font-size:30px;">手机-无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
-        list1, list2,list3,list4)
+    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="25%"><strong style="font-size:30px;">手机-有图版</strong></td><td width="25%"><strong style="font-size:30px;">手机-无图版</strong></td><td width="9999"><strong style="font-size:30px;">PC-有图版</strong></td><td width="25%"><strong style="font-size:30px;">PC-无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
+        list3,list4,list1,list2)
     # print(str1)
     with open('old.html', 'w', encoding='utf-8') as f:
         f.write(str1)
