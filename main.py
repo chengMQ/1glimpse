@@ -112,3 +112,4 @@ if __name__ == '__main__':
     withoutpic_to_file(ss)
     refresh_index()
     refresh_old()
+    print('===============All missions completed===============')
