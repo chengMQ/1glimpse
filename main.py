@@ -50,7 +50,7 @@ def withpics_to_file(ss):
         f.write(scode)
     # for mobile
     with open('./pages/%s[cover-yes-mobile].html' % this_day, 'w', encoding='utf-8') as f:
-        scode=re.sub('<td.*?>|</td>','',scode)
+        scode=re.sub('<td.*?>|</td>','',scode).replace('font-size:18px;', 'font-size:38px;').replace('font-size:16px;', 'font-size:28px;')
         f.write(scode)
 
 
@@ -65,7 +65,7 @@ def withoutpic_to_file(ss):
         f.write(scode)
     # for mobile
     with open('./pages/%s[cover-no-mobile].html' % this_day, 'w', encoding='utf-8') as f:
-        scode=re.sub('<td.*?>|</td>|<img.*?>|<video.*?</video>','',scode)
+        scode=re.sub('<td.*?>|</td>|<img.*?>|<video.*?</video>','',scode).replace('font-size:18px;', 'font-size:18px;').replace('font-size:16px;', 'font-size:28px;')
         f.write(scode)
 
 def refresh_index():
