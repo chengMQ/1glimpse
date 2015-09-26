@@ -344,7 +344,7 @@ def pyld_iplaysoft():
     my_title = pyld_iplaysoft.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
     column = 5
-    iscover = 1
+    iscover = 0
     try:
         r = requests.get('http://feed.iplaysoft.com/')
         ss = unescape(r.text)
