@@ -14,7 +14,7 @@ def pyld_jiandan():
     my_title = pyld_jiandan.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
     column = 6
-    iscover = 1
+    iscover = 0
     try:
         r = requests.get('http://jandan.net/', headers={'Host': 'jandan.net', 'Cookie': '1933948167=58',
                                                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0'})
