@@ -215,7 +215,7 @@ def pyld_chinaz():
     starttime = time.time()
     my_title = pyld_chinaz.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
-    column = 6
+    column = 7
     iscover = 1
     try:
         r = requests.get('http://www.chinaz.com/')
@@ -343,7 +343,7 @@ def pyld_iplaysoft():
     starttime = time.time()
     my_title = pyld_iplaysoft.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
-    column = 6
+    column = 5
     iscover = 1
     try:
         r = requests.get('http://feed.iplaysoft.com/')
@@ -358,7 +358,7 @@ def pyld_iplaysoft():
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
-        result = list(zip(covers, titles, urls, sums))[:6]
+        result = list(zip(covers, titles, urls, sums))[:10]
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         result = [['error'] * 4]

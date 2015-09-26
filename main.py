@@ -23,7 +23,7 @@ def list2html(table_html):
         if not cover:
             cover = 'error'
         if iscover:
-            cover = '<img   style="width:100%;" height=200  src="{}" onerror="this.src=\'./empty.jpg\'" />'.format(
+            cover = '<img   width=100%  src="{}" onerror="this.src=\'./empty.jpg\'" />'.format(
                 cover)
         else:
             cover = ''
@@ -48,6 +48,10 @@ def withpics_to_file(ss):
         scode = '<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles2, this_time) + '<hr>'.join(
             ss)+'<div align="center"><a href="../index.html">回到首页</a></div>'
         f.write(scode)
+    # for mobile
+    with open('./pages/%s[cover-yes-mobile].html' % this_day, 'w', encoding='utf-8') as f:
+        scode=re.sub('<td.*?>|</td>','',scode)
+        f.write(scode)
 
 
 def withoutpic_to_file(ss):
@@ -59,7 +63,10 @@ def withoutpic_to_file(ss):
         scode = '<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles2, this_time) + '<hr>'.join(
             ss)+'<div align="center"><a href="../index.html">回到首页</a></div>'
         f.write(scode)
-
+    # for mobile
+    with open('./pages/%s[cover-no-mobile].html' % this_day, 'w', encoding='utf-8') as f:
+        scode=re.sub('<td.*?>|</td>|<img.*?>|<video.*?</video>','',scode)
+        f.write(scode)
 
 def refresh_index():
     # 刷新index.html
@@ -71,8 +78,12 @@ def refresh_index():
                      for i in list0 if '[cover-yes]' in i])
     list2 = ''.join([i.replace('[cover-no]blabla', '')
                      for i in list0 if '[cover-no]' in i])
-    str1 = '<!--网址列表--start--><p style="font-size:18px;">最后更新：{}</p><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="font-size:35px;">有图版</strong></td><td width="50%"><strong style="font-size:35px;">无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
-        this_time, titles, list1, list2)
+    list3 = ''.join([i.replace('[cover-yes-mobile]blabla', '')
+                     for i in list0 if '[cover-yes-mobile]' in i])
+    list4 = ''.join([i.replace('[cover-no-mobile]blabla', '')
+                     for i in list0 if '[cover-no-mobile]' in i])
+    str1 = '<!--网址列表--start--><p style="font-size:18px;">最后更新：{}</p><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="font-size:30px;">PC-有图版</strong></td><td width="25%"><strong style="font-size:30px;">PC无图版</strong></td><td width="25%"><strong style="font-size:30px;">手机-有图版</strong></td><td width="25%"><strong style="font-size:30px;">手机-无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
+        this_time, titles, list1, list2,list3,list4)
     # print(str1)
     with open('index.html', 'r', encoding='utf-8') as f:
         scode = f.read()
@@ -91,8 +102,12 @@ def refresh_old():
                      for i in list0 if '[cover-yes]' in i])
     list2 = ''.join([i.replace('[cover-no]blabla', '')
                      for i in list0 if '[cover-no]' in i])
-    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="font-size:30px;">有图版</strong></td><td width="50%"><strong style="font-size:30px;">无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
-        list1, list2)
+    list3 = ''.join([i.replace('[cover-yes-mobile]blabla', '')
+                     for i in list0 if '[cover-yes-mobile]' in i])
+    list4 = ''.join([i.replace('[cover-no-mobile]blabla', '')
+                     for i in list0 if '[cover-no-mobile]' in i])
+    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="font-size:30px;">PC-有图版</strong></td><td width="25%"><strong style="font-size:30px;">PC无图版</strong></td><td width="25%"><strong style="font-size:30px;">手机-有图版</strong></td><td width="25%"><strong style="font-size:30px;">手机-无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
+        list1, list2,list3,list4)
     # print(str1)
     with open('old.html', 'w', encoding='utf-8') as f:
         f.write(str1)
