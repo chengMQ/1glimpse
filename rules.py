@@ -41,7 +41,7 @@ def pyld_kaiyan():
     starttime = time.time()
     my_title = pyld_kaiyan.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
-    column = 5
+    column = 6
     iscover = 0
     try:
         r = requests.get('http://baobab.wandoujia.com/api/v1/feed')
