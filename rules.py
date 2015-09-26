@@ -8,6 +8,34 @@ from html import unescape
 thisday = datetime.datetime.today()
 
 
+def pyld_36kr_next():
+    '''<a style="color:#000000;" target="_blank" href="http://www.next.36kr.com/posts" title="36氪是一个关注互联网创业的科技博客，旗下NEXT栏目的宗旨是不错过任何一个新产品。不错，简洁明了信息量大">36kr-NEXT</a>'''
+    starttime = time.time()
+    my_title = pyld_36kr_next.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
+    column = 6
+    iscover = 0
+    try:
+        r = requests.get('http://www.next.36kr.com/posts')
+        xpath = fromstring(r.text).xpath
+        items = xpath('//div/section[2]/ul/li')
+        urls = ['http://www.next.36kr.com' +
+                i.xpath('./div/div/a[@class="post-url"]/@href')[0] for i in items]
+        covers = [''] * len(urls)
+        titles = [i.xpath('./div/div/a[@class="post-url"]/text()')[0]
+                  for i in items]
+        sums = [i.xpath('./div/div[@class="product-url"]/span/text()')[0]
+                for i in items]
+        aa = list(zip(covers, titles, urls, sums))
+        # print('推酷——finished……')
+    except Exception as e:
+        print('%s  %s' % (title_clean, e))
+        aa = [['error'] * 4]
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
+    return [my_title, aa, column, iscover]
+
+
 def pyld_kaiyan():
     '''<a style="color:#000000;" target="_blank" href="http://www.wandoujia.com/eyepetizer/list.html" title="开眼，是豌豆荚出品的一款精品短视频日报应用。在这里，我们会每天为你推荐精心挑选的短视频，它们可能是创意惊人的大牌广告，可能是鲜为人知的美丽风景，也可能是专业的美食攻略或有品位的穿衣指导。挺多“外面”的视频……话说，流量预警啊">开眼-每日精选</a>'''
     starttime = time.time()
@@ -76,7 +104,7 @@ def pyld_36kr():
         r = requests.get(newurl)
         items = items + fromstring(r.text).xpath('//article')
         items = [i for i in items if i.xpath('./div/div/span/time/@datetime')]
-        urls = ['http://36kr.com'+i.xpath('./a/@href')[0] for i in items]
+        urls = ['http://36kr.com' + i.xpath('./a/@href')[0] for i in items]
         covers = [i.xpath('./a/@data-lazyload')[0] for i in items]
         titles = [i.xpath('./div/a/text()')[0] for i in items]
         sums = [i.xpath('./div/div[@class="brief"]/text()')[0] for i in items]
