@@ -13,7 +13,7 @@ def pyld_36kr_next():
     starttime = time.time()
     my_title = pyld_36kr_next.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
-    column = 6
+    column = 7
     iscover = 0
     try:
         r = requests.get('http://www.next.36kr.com/posts')
