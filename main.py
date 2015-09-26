@@ -46,7 +46,7 @@ def withpics_to_file(ss):
     with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
         scode = '<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles2, this_time) + '<hr>'.join(
-            ss)
+            ss)+'<div align="center"><a href="../index.html">回到首页</a></div>'
         f.write(scode)
 
 
@@ -57,7 +57,7 @@ def withoutpic_to_file(ss):
     with open('./pages/%s[cover-no].html' % this_day, 'w', encoding='utf-8') as f:
 
         scode = '<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 %s</title><style> body{background-color:#aaaaaa} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles2, this_time) + '<hr>'.join(
-            ss)
+            ss)+'<div align="center"><a href="../index.html">回到首页</a></div>'
         f.write(scode)
 
 
