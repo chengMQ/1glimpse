@@ -23,7 +23,7 @@ def pyld_pythondaily():
             if r.status_code==404:
                 continue
             items = [tostring(i,encoding='utf-8').decode('utf-8') for i in fromstring(r.text).xpath('//div[@id="container"]/div[@class]')]
-            sums = [re.sub('<img.*?>','',i) for i in items]
+            sums = [re.sub('<img.*?>','',i).replace('font-size:14px','font-size:24px').replace('font-size:12px','font-size:24px') for i in items]
             urls = [''] * len(sums)
             titles = [''] * len(sums)
             covers = [''] * len(sums)
