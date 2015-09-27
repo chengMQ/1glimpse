@@ -140,7 +140,7 @@ def pyld_36kr():
         ptime = ['<div align="right"><br>%s</div>' % re.sub(' \+\d\d\d\d$', '', i.xpath('./div/div/span/time/@datetime')[0])
                  for i in items]
         sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
-        aa = list(zip(covers, titles, urls, sums))
+        aa = [i for i in list(zip(covers, titles, urls, sums)) if thisday.strftime('%Y-%m-%d') in i[3]]
 
     except Exception as e:
         print('%s  %s' % (title_clean, e))
@@ -168,13 +168,13 @@ def pyld_movie80s():
             '//ul[@class="me1 clearfix"]/li/span[@class="tip"]/text()')
         urls = ['http://www.80s.cn' +
                 i for i in xpath('//ul[@class="me1 clearfix"]/li/a/@href')]
-        result = list(zip(covers, titles, urls, sums))[:22]
+        aa = list(zip(covers, titles, urls, sums))[:22]
     except Exception as e:
         print('%s  %s' % (title_clean, e))
-        result = [['error'] * 4]
+        aa = [['error'] * 4]
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
-    return [my_title, result, column, iscover]
+    return [my_title, aa, column, iscover]
 
 
 def pyld_youku():
@@ -200,14 +200,14 @@ def pyld_youku():
         ptime = ['<div align="right"><br>%s</div>' %
                  i for i in xpath('//div[@class="yk-container"]/div[2]//span[@class="v-time"]/text()')]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
-        result = list(zip(covers, titles, urls, sums))[:]
+        aa = list(zip(covers, titles, urls, sums))[:]
     except Exception as e:
         print('%s  %s' % (title_clean, e))
-        result = [['error'] * 4]
+        aa = [['error'] * 4]
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     column = len(titles)
-    return [my_title, result, column, iscover]
+    return [my_title, aa, column, iscover]
 
 
 def pyld_chinaz():
@@ -328,14 +328,14 @@ def pyld_appinn():
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
-        result = [i for i in list(zip(covers, titles, urls, sums)) if thisday.strftime('%Y-%m-%d') in i[3]]
+        aa = [i for i in list(zip(covers, titles, urls, sums)) if thisday.strftime('%Y-%m-%d') in i[3]]
     except Exception as e:
         print('%s  %s' % (title_clean, e))
-        result = [['error'] * 4]
+        aa = [['error'] * 4]
         # print('异次元软件世界——finished……')
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
-    return [my_title, result, column, iscover]
+    return [my_title, aa, column, iscover]
 
 
 def pyld_iplaysoft():
@@ -358,14 +358,14 @@ def pyld_iplaysoft():
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
-        result = list(zip(covers, titles, urls, sums))[:10]
+        aa = list(zip(covers, titles, urls, sums))[:10]
     except Exception as e:
         print('%s  %s' % (title_clean, e))
-        result = [['error'] * 4]
+        aa = [['error'] * 4]
         # print('异次元软件世界——finished……')
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
-    return [my_title, result, column, iscover]
+    return [my_title, aa, column, iscover]
 
 
 def _pyld_tuicool():
