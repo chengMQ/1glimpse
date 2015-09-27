@@ -20,6 +20,7 @@ def pyld_jiandan():
                                                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0'})
         scode = r.content.decode('utf-8')
         items = fromstring(scode).xpath('//div[@class="post f list-post"]')
+        items = [i for i in items if 'day' not in i.xpath('./div/div[@class="time_s"]/text()')[0]]
         covers = [i.xpath(
             './div[@class="thumbs_b"]/a/img/@src|./div[@class="thumbs_b"]/a/img/@data-original')[0] for i in items]
         urls = [i.xpath('./div[@class="thumbs_b"]/a/@href')[0] for i in items]
