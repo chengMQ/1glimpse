@@ -29,13 +29,14 @@ def pyld_pythondaily():
             titles = [''] * len(sums)
             covers = [''] * len(sums)
             aa = list(zip(covers, titles, urls, sums))
-
+            print(aa)
+            break
         except Exception as e:
             print('%s  %s' % (title_clean, e))
             aa = [['error'] * 4]
-        runtime1 = round(time.time() - starttime, 3)
-        print(title_clean, 'finished in %s seconds' % runtime1)
-        return [my_title, aa, column, iscover]
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
+    return [my_title, aa, column, iscover]
 
 
-pyld_pythondaily()
+print(pyld_pythondaily())
