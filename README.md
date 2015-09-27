@@ -102,6 +102,7 @@ pyld.py是平时测试用的，没有实际意义
 
 ```
 36kr	首页	http://36kr.com/ 	√
+36kr	NEXT	http://www.next.36kr.com/posts	√
 80s	电影	http://www.80s.cn/	√
 CSDN	APP/首页	暂无	
 del.icio.us	待定	https://del.icio.us/	
@@ -135,8 +136,11 @@ Zaker	待定	http://www.myzaker.com/index.html
 果壳精选	APP	暂无	
 虎嗅	首页	http://www.huxiu.com/ 	√
 极客头条	首页	http://geek.csdn.net/hotest	
+煎蛋	首页	http://jandan.net/	√
+酱知	每日一蘸	http://www.jiangzhi.la/mryz/history_list.html	√
 脚本之家	Python	http://www.jb51.net/list/list_97_1.htm 	
 今日头条	首页	http://toutiao.com/ 	
+开眼	每日精选	http://www.wandoujia.com/eyepetizer/list.html	√
 快递	单号	http://www.kiees.cn/ 	#
 绿色下载吧	文章	http://www.xiazaiba.com/news/index.html	
 码农网	资讯	http://www.codeceo.com/article/category/news	
@@ -151,8 +155,6 @@ Zaker	待定	http://www.myzaker.com/index.html
 异次元软件	RSS	http://www.iplaysoft.com/ 	√
 站长之家	推荐	http://www.chinaz.com/	
 知乎日报	首页	http://daily.zhihu.com/ 	
-酱知	每日一蘸	http://www.jiangzhi.la/mryz/history_list.html	√
-开眼	每日精选	http://www.wandoujia.com/eyepetizer/list.html	√
   
 ```
 
