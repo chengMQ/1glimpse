@@ -369,7 +369,7 @@ def pyld_iplaysoft():
     return [my_title, aa, column, iscover]
 
 
-def _pyld_tuicool():
+def pyld_tuicool():
     '''<a style="color:#000000;" target="_blank" href="http://www.tuicool.com/ah" title="推酷网是面向IT人的个性化阅读网站,其背后的推荐引擎通过智能化的分析,向用户推荐感兴趣的科技资讯、产品设计、网络营销、技术文章等内容。它最大的收录价值在于，不但汇聚了当前主流IT资讯类网站的内容，并且在其中进行了精选，省去了浏览冷门知识的时间。">推酷-文章</a>'''
     starttime = time.time()
     my_title = pyld_tuicool.__doc__
@@ -419,6 +419,7 @@ def _pyld_tuicool():
         aa = [['error'] * 4]
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
+    aa = [i for i in aa if thisday.strftime('%m-%d') in i[3]]
     return [my_title, aa, column, iscover]
 
 
