@@ -12,7 +12,7 @@ def pyld_pythondaily():
     starttime = time.time()
     my_title = pyld_pythondaily.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
-    column = 6  # 根据内容数量来划分
+    column = 7  # 根据内容数量来划分
     iscover = 0
     for day1 in range(3):
         try:
@@ -23,7 +23,7 @@ def pyld_pythondaily():
             if r.status_code==404:
                 continue
             items = [tostring(i,encoding='utf-8').decode('utf-8') for i in fromstring(r.text).xpath('//div[@id="container"]/div[@class]')]
-            sums = [re.sub('<img.*?>','',i).replace('font-size:14px','font-size:20px').replace('font-size:12px','font-size:24px').replace('font-size:16px','font-size:20px') for i in items]
+            sums = [re.sub('<img.*?>','',i).replace('font-size:14px','font-size:20px').replace('font-size:12px','font-size:24px').replace('font-size:16px','font-size:20px').replace('div title="keywords" class="keyword-wrapper"','b') for i in items]
             urls = [''] * len(sums)
             titles = [''] * len(sums)
             covers = [''] * len(sums)
