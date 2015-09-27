@@ -328,7 +328,7 @@ def pyld_appinn():
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
-        result = list(zip(covers, titles, urls, sums))[:14]
+        result = [i for i in list(zip(covers, titles, urls, sums)) if thisday.strftime('%Y-%m-%d') in i[3]]
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         result = [['error'] * 4]
