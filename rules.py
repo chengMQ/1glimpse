@@ -1,11 +1,12 @@
 import requests
 import re
-from lxml.html import fromstring,tostring
+from lxml.html import fromstring, tostring
 import datetime
 import time
 from html import unescape
 
 thisday = datetime.datetime.today()
+
 
 def pyld_pythondaily():
     '''<a style="color:#000000;" target="_blank" href="http://forum.memect.com/blog/thread-category/py/" title="好东西传送门旗下python干货合集，一日一更，虽然订阅了邮件，但还是想留点存档看看。">好东西传送门-python日报</a>'''
@@ -20,14 +21,17 @@ def pyld_pythondaily():
                 thisday - datetime.timedelta(days=day1)).strftime("%Y-%m-%d")
             url = 'http://forum.memect.com/blog/thread/py-%s/' % theday
             r = requests.get(url)
-            if r.status_code==404:
+            if r.status_code == 404:
                 continue
-            items = [tostring(i,encoding='utf-8').decode('utf-8') for i in fromstring(r.text).xpath('//div[@id="container"]/div[@class]')]
-            sums = [re.sub('<img.*?>','',i).replace('font-size:14px','font-size:20px').replace('font-size:12px','font-size:24px').replace('font-size:16px','font-size:20px').replace('div title="keywords" class="keyword-wrapper"','b') for i in items]
+            items = [tostring(i, encoding='utf-8').decode('utf-8')
+                     for i in fromstring(r.text).xpath('//div[@id="container"]/div[@class]')]
+            sums = [re.sub('<img.*?>', '', i).replace('font-size:14px', 'font-size:20px').replace('font-size:12px', 'font-size:24px').replace(
+                'font-size:16px', 'font-size:20px').replace('div title="keywords" class="keyword-wrapper"', 'b') for i in items]
             urls = [''] * len(sums)
             titles = [''] * len(sums)
             covers = [''] * len(sums)
-            aa = list(zip(covers, titles, urls, sums))
+            head = [('', fromstring(r.text).xpath('//h1/text()')[0], url, '')]
+            aa = head+list(zip(covers, titles, urls, sums))
             break
         except Exception as e:
             print('%s  %s' % (title_clean, e))
@@ -35,6 +39,8 @@ def pyld_pythondaily():
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
+
+
 def pyld_jiandan():
     '''<a style="color:#000000;" target="_blank" href="http://jandan.net/" title="地球上没有新鲜事……Whatever...">煎蛋-首页</a>'''
     starttime = time.time()
@@ -47,7 +53,8 @@ def pyld_jiandan():
                                                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0'})
         scode = r.content.decode('utf-8')
         items = fromstring(scode).xpath('//div[@class="post f list-post"]')
-        items = [i for i in items if 'day' not in i.xpath('./div/div[@class="time_s"]/text()')[0]]
+        items = [i for i in items if 'day' not in i.xpath(
+            './div/div[@class="time_s"]/text()')[0]]
         covers = [i.xpath(
             './div[@class="thumbs_b"]/a/img/@src|./div[@class="thumbs_b"]/a/img/@data-original')[0] for i in items]
         urls = [i.xpath('./div[@class="thumbs_b"]/a/@href')[0] for i in items]
@@ -168,7 +175,8 @@ def pyld_36kr():
         ptime = ['<div align="right"><br>%s</div>' % re.sub(' \+\d\d\d\d$', '', i.xpath('./div/div/span/time/@datetime')[0])
                  for i in items]
         sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
-        aa = [i for i in list(zip(covers, titles, urls, sums)) if thisday.strftime('%Y-%m-%d') in i[3]]
+        aa = [i for i in list(zip(covers, titles, urls, sums)) if thisday.strftime(
+            '%Y-%m-%d') in i[3]]
 
     except Exception as e:
         print('%s  %s' % (title_clean, e))
@@ -356,7 +364,8 @@ def pyld_appinn():
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
-        aa = [i for i in list(zip(covers, titles, urls, sums)) if thisday.strftime('%Y-%m-%d') in i[3]]
+        aa = [i for i in list(zip(covers, titles, urls, sums)) if thisday.strftime(
+            '%Y-%m-%d') in i[3]]
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
