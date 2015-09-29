@@ -5,6 +5,7 @@ import time
 import os
 import rules
 from inspect import getmembers
+import random
 
 this_day = datetime.datetime.now().strftime('%Y-%m-%d')
 this_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -44,7 +45,7 @@ def withpics_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = r'<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 {}</title><style>body{{background-image:url("./bgs/bg1.jpg");background-size: 100% 100%;}} </style><style> td{{background-image: url("");background-size: 100% 100%;}} </style><style>A {{text-decoration: NONE}} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="right">—— 更新时间：{} </div><hr>'.format(this_time, titles2, this_time) + '<hr>'.join(
+        scode = r'<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 {}</title><style>body{{background-image:url("./bgs/bg{}.jpg");background-size: 100% 100%;}} </style><style> td{{background-image: url("");background-size: 100% 100%;}} </style><style>A {{text-decoration: NONE}} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="right">—— 更新时间：{} </div><hr>'.format(this_time,random.randint(1, 14), titles2, this_time) + '<hr>'.join(
             ss) + '<div align="center"><a style="font-size:18px;" href="../index.html">回到首页</a></div>'
         f.write(scode)
     # for mobile
