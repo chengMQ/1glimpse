@@ -354,7 +354,7 @@ def pyld_appinn():
     column = 7
     iscover = 1
     try:
-        r = requests.get('http://feeds.appinn.com/appinns/')
+        r = requests.get('http://feeds.appinn.com/appinns/',timeout=10)
         ss = unescape(r.text)
         xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
         titles = xpath('//item/title/text()')
