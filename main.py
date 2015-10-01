@@ -12,7 +12,7 @@ this_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 def list2html(table_html):
     # 具体的数据转HTML过程
     website, list1, num, iscover = table_html
-    head = "<div id='{}'><table style='table-layout:fixed;' cellspacing=2 cellpadding=3 width='100%' align='center'><tbody><p><h2 style='font-size:38px;' align='center'>{}&nbsp;[ {} 篇 ]&nbsp;&nbsp;&nbsp;<a href='#headline' style='font-size:38px;'>&crarr;</a></h2></p><hr>blablablabla</tbody></table></div>".format(
+    head = "<div id='{}'><table style='table-layout:fixed;' cellspacing=2 cellpadding=3 width='100%' align='center'><tbody><p><h2 style='font-size:38px;' align='center'>{}&nbsp;[ {} 篇 ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='#headline' style='font-size:38px;'>↗</a></h2></p><hr>blablablabla</tbody></table></div>".format(
         re.sub('<.*?>', '', website), website, len(list1))
     if not list1:
         return head.replace('blablablabla', '<div align="center">暂无新数据</div>')
