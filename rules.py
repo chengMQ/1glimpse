@@ -406,7 +406,8 @@ def pyld_iplaysoft():
         ptime = ['<div align="right"><br>%s</div>' % datetime.datetime.strptime(i, '%a, %d %b %Y %H:%M:%S GMT').strftime(
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
-        aa = list(zip(covers, titles, urls, sums))[:10]
+        aa = list(zip(covers, titles, urls, sums))
+        aa=[i for i in aa if thisday.strftime("%Y-%m-%d") in i[3]]
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
