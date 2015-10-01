@@ -12,7 +12,7 @@ this_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 def list2html(table_html):
     # 具体的数据转HTML过程
     website, list1, num, iscover = table_html
-    head = "<div id='{}'><table style='table-layout:fixed;' cellspacing=2 cellpadding=3 width='100%' align='center'><tbody><p><h2 style='font-size:38px;' align='center'>{}&nbsp;[ {} 篇 ]</h2></p><hr>blablablabla</tbody></table></div>".format(
+    head = "<div id='{}'><table style='table-layout:fixed;' cellspacing=2 cellpadding=3 width='100%' align='center'><tbody><p><h2 style='font-size:38px;' align='center'>{}&nbsp;[ {} 篇 ]&nbsp;&nbsp;&nbsp;<a href='#headline' style='font-size:18px;'>回到顶部</a></h2></p><hr>blablablabla</tbody></table></div>".format(
         re.sub('<.*?>', '', website), website, len(list1))
     if not list1:
         return head.replace('blablablabla', '<div align="center">暂无新数据</div>')
@@ -44,7 +44,7 @@ def withpics_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = r'''<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 {}</title><script type="text/javascript">document.write('<style>body{{background-image:url("./bgs/bg' + Math.round( Math.random() * 14 ) + '.jpg");background-size: 100% 100%;}}</style>');</script><style> td{{background-image: url("");background-size: 100% 100%;}} </style><style>A {{text-decoration: NONE}} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="right">—— 更新时间：{} </div><hr>'''.format(this_time, titles2, this_time) + '<hr>'.join(
+        scode = r'''<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 {}</title><script type="text/javascript">document.write('<style>body{{background-image:url("./bgs/bg' + Math.round( Math.random() * 14 ) + '.jpg");background-size: 100% 100%;}}</style>');</script><style> td{{background-image: url("");background-size: 100% 100%;}} </style><style>A {{text-decoration: NONE}} </style><p id="headline" style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="right">—— 更新时间：{} </div><hr>'''.format(this_time, titles2, this_time) + '<hr>'.join(
             ss) + '<div align="center"><a style="font-size:18px;" href="../index.html">回到首页</a></div>'
         f.write(scode)
     # for mobile
@@ -60,7 +60,7 @@ def withoutpic_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-no].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = '<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 %s</title><style>body{background-color:#cccccc} </style><style> td{background-image: url("");background-size: 100% 100%;} </style><style>A {text-decoration: NONE} </style><p style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles2, this_time) + '<hr>'.join(
+        scode = '<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 %s</title><style>body{background-color:#cccccc} </style><style> td{background-image: url("");background-size: 100% 100%;} </style><style>A {text-decoration: NONE} </style><p id="headline" style="font-size:18px;"><strong>当前订阅列表：</strong>%s</p><div align="right">—— 更新时间：%s </div><hr>' % (this_time, titles2, this_time) + '<hr>'.join(
             ss) + '<div align="center"><a style="font-size:18px;" href="../index.html">回到首页</a></div>'
         f.write(scode)
     # for mobile
