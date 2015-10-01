@@ -36,6 +36,7 @@ def pyld_pythondaily():
         except Exception as e:
             print('%s  %s' % (title_clean, e))
             aa = [['error'] * 4]
+            iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
@@ -66,6 +67,7 @@ def pyld_jiandan():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
@@ -94,6 +96,7 @@ def pyld_36kr_next():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
@@ -120,6 +123,7 @@ def pyld_kaiyan():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
@@ -146,6 +150,7 @@ def pyld_jiangzhi():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
@@ -180,6 +185,7 @@ def pyld_36kr():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
@@ -207,6 +213,7 @@ def pyld_movie80s():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
@@ -239,6 +246,7 @@ def pyld_youku():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     column = len(titles)
@@ -269,6 +277,7 @@ def pyld_chinaz():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
@@ -304,6 +313,7 @@ def pyld_gankio():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
@@ -340,6 +350,7 @@ def pyld_huxiu():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
@@ -368,6 +379,7 @@ def pyld_appinn():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
         # print('异次元软件世界——finished……')
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
@@ -398,6 +410,7 @@ def pyld_iplaysoft():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
         # print('异次元软件世界——finished……')
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
@@ -452,6 +465,7 @@ def pyld_tuicool():
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
+        iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     aa = [i for i in aa if thisday.strftime('%m-%d') in i[3]]
