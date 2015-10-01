@@ -31,7 +31,7 @@ def pyld_pythondaily():
             titles = [''] * len(sums)
             covers = [''] * len(sums)
             head = [('', fromstring(r.text).xpath('//h1/text()')[0], url, '')]
-            aa = head+list(zip(covers, titles, urls, sums))
+            aa = head + list(zip(covers, titles, urls, sums))
             break
         except Exception as e:
             print('%s  %s' % (title_clean, e))
@@ -60,8 +60,7 @@ def pyld_jiandan():
         urls = [i.xpath('./div[@class="thumbs_b"]/a/@href')[0] for i in items]
         titles = [i.xpath('./div[@class="indexs"]/h2/a/text()')[0]
                   for i in items]
-        sums = [re.sub('<.*?>|\s{4,}', '', i).strip()
-                for i in re.findall('<h2>[\s\S]*?</h2>[\s\S]*?<a[\s\S]*?>([\s\S]*?)<a', scode)]
+        sums = [i.strip() for i in re.findall('</h2>([\s\S]*?)<a', scode)]
         aa = list(zip(covers, titles, urls, sums))
 
     except Exception as e:
@@ -354,7 +353,7 @@ def pyld_appinn():
     column = 7
     iscover = 1
     try:
-        r = requests.get('http://feeds.appinn.com/appinns/',timeout=10)
+        r = requests.get('http://feeds.appinn.com/appinns/', timeout=10)
         ss = unescape(r.text)
         xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
         titles = xpath('//item/title/text()')
