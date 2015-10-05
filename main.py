@@ -1,3 +1,5 @@
+#!python3
+
 import re
 from multiprocessing.dummy import Pool
 import datetime
@@ -8,6 +10,7 @@ from inspect import getmembers
 
 this_day = datetime.datetime.now().strftime('%Y-%m-%d')
 this_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
 
 def list2html(table_html):
     # 具体的数据转HTML过程

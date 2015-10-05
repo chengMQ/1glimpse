@@ -1,3 +1,4 @@
+#!python3
 import requests
 import re
 from lxml.html import fromstring, tostring
@@ -262,7 +263,7 @@ def pyld_chinaz():
     iscover = 1
     try:
         r = requests.get('http://www.chinaz.com/')
-        items = fromstring(r.content.decode('utf8')).xpath(
+        items = fromstring(r.content.decode('utf8','ignore')).xpath(
             '//div[@class="topicsImgTxtBar aTabMain"]/ul[1]/li')
 
         items = [i for i in items if i.xpath(
