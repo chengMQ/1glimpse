@@ -114,7 +114,7 @@ def pyld_kaiyan():
         r = requests.get('http://baobab.wandoujia.com/api/v1/feed')
         items = r.json()['dailyList'][0]['videoList']
         titles = [i['title'] for i in items]
-        covers = [''] * len(titles)
+        covers = [i['coverForFeed'] for i in items]
         urls = [i['rawWebUrl'] for i in items]
         desc = ['<video height=200 width=100% src="{}" controls="controls"><a href="{}">您的浏览器不支持 video 标签</video></a><p>{}</p>'.format(
             i['playUrl'], i['rawWebUrl'], i['description']) for i in items]
