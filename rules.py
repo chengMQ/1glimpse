@@ -109,16 +109,15 @@ def pyld_kaiyan():
     my_title = pyld_kaiyan.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
     column = 6
-    iscover = 0
+    iscover = 1
     try:
         r = requests.get('http://baobab.wandoujia.com/api/v1/feed')
         items = r.json()['dailyList'][0]['videoList']
         titles = [i['title'] for i in items]
-        covers = [''] * len(titles)
+        covers = [i['coverForFeed'] for i in items]
         urls = [i['rawWebUrl'] for i in items]
-        desc = ['<video  width=100% poster="{}" src="{}" controls="controls"><a href="{}">您的浏览器不支持 video 标签</video></a><p>{}</p>'.format(
-            i['coverForFeed'],i['playUrl'], i['rawWebUrl'], i['description']) for i in items]
-        column = len(titles)
+        desc = ['<p>{}</p>'.format(i['description']) for i in items]
+        column = len(items)
         aa = list(zip(covers, titles, urls, desc))
 
     except Exception as e:
@@ -263,7 +262,7 @@ def pyld_chinaz():
     iscover = 1
     try:
         r = requests.get('http://www.chinaz.com/')
-        items = fromstring(r.content.decode('utf8','ignore')).xpath(
+        items = fromstring(r.content.decode('utf8', 'ignore')).xpath(
             '//div[@class="topicsImgTxtBar aTabMain"]/ul[1]/li')
 
         items = [i for i in items if i.xpath(
@@ -408,7 +407,7 @@ def pyld_iplaysoft():
             '%Y-%m-%d %H:%M:%S') for i in xpath('//pubdate/text()')[1:]]
         sums = [''.join(i) for i in list(zip(sums, ptime))]
         aa = list(zip(covers, titles, urls, sums))
-        aa=[i for i in aa if thisday.strftime("%Y-%m-%d") in i[3]]
+        aa = [i for i in aa if thisday.strftime("%Y-%m-%d") in i[3]]
     except Exception as e:
         print('%s  %s' % (title_clean, e))
         aa = [['error'] * 4]
