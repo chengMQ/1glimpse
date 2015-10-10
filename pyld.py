@@ -4,31 +4,49 @@ import re
 from lxml.html import fromstring, tostring
 import datetime
 import time
+import json
 from html import unescape
 
 thisday = datetime.datetime.today()
 
 
-def pyld_chinaz():
-    '''<a style="color:#000000;" target="_blank" href="http://www.chinaz.com/" title="站长之家(中国站长站)为个人站长与企业网络提供全面的站长资讯、最新最全的源代码程序下载、海量建站素材、强大的搜索优化辅助工具、网络产品设计与运营理念以及一站式网络解决方案。做网站的应该都用过。">站长之家-首页推荐</a>'''
+def pyld_kuaikeji():
+    '''<a style="color:#000000;" target="_blank" href="http://news.mydrivers.com/" title="快科技(原驱动之家)新闻中心，每日持续更新报道IT业界、互联网、市场资讯、驱动更新、游戏及产品资讯新闻，是最及时权威的产业新闻及硬件新闻报道平台，快科技(原驱动之家)--全球最新科技资讯专业发布平台。别的不说，确实够长了...">快科技-资讯</a>'''
     starttime = time.time()
-    my_title = pyld_chinaz.__doc__
+    my_title = pyld_kuaikeji.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
-    column = 7
+    column = 6
     iscover = 1
     try:
-        r = requests.get('http://www.chinaz.com/')
-        items = fromstring(r.content.decode('utf8','ignore')).xpath(
-            '//div[@class="topicsImgTxtBar aTabMain"]/ul[1]/li')
+        s = requests.Session()
+        today1 = (str(thisday.year), str(thisday.month), str(thisday.day))
+        pagenum = 1
+        aa = []
+        while 1:
+            r = s.get('http://blog.mydrivers.com/getnewnewslistjson.aspx?pageid=%s' %
+                      pagenum, headers={'Referer': 'http://news.mydrivers.com/'})
+            items = json.loads(re.sub('^NewsList\(|\)$', '', r.text))['Table']
+            # print(items)
+            items = [i for i in items if today1 ==
+                     (i['year'], i['month'], i['day'])]
+            if not items:
+                break
+            pagenum += 1
+            urls = ['http://news.mydrivers.com' + i['Url'] for i in items]
+            covers = ['http://news.mydrivers.com' + i['ListPic']
+                      for i in items]
+            covers = list(map(lambda x: re.sub(
+                '^http://news.mydrivers.com$', '', x), covers))
+            titles = [i['Title'] for i in items]
+            sums = [i['Content'].strip() for i in items]
+            ptime = ['-'.join((i['year'], i['month'], i['day'])) + ' ' +
+                     ':'.join((i['hour'], i['minute'], i['second'])) for i in items]
+            ptime = ['<div style="font-size:15px;" align="right"><br>%s</div>' % i for i in ptime]
+            # print(ptime)
+            sums = ['<br>'.join(i) for i in list(zip(sums, ptime))]
+            aa_new = list(zip(covers, titles, urls, sums))
 
-        items = [i for i in items if i.xpath(
-            './div/span[@class="date"]/text()')[0].startswith(thisday.strftime(r'%myue%dri').replace('yue', '月').replace('ri', '日'))]
-        titles = [i.xpath('./a//h5/text()')[0] for i in items]
-        covers = [i.xpath('./a//img/@src')[0] for i in items]
-        urls = [i.xpath('./a/@href')[0] for i in items]
-        sums = [i.xpath('./a//p/text()')[0] for i in items]
-
-        aa = list(zip(covers, titles, urls, sums))
+            aa += aa_new
 
     except Exception as e:
         print('%s  %s' % (title_clean, e))
@@ -36,7 +54,8 @@ def pyld_chinaz():
         iscover = 0
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
+    aa = [i for i in aa if thisday.strftime('%m-%d') in i[3]]
     return [my_title, aa, column, iscover]
 
 
-print(pyld_chinaz())
+print(pyld_kuaikeji())
