@@ -111,7 +111,7 @@ def refresh_old():
                      for i in list0 if '[cover-yes-mobile]' in i])
     list4 = ''.join([i.replace('[cover-no-mobile]blabla', '')
                      for i in list0 if '[cover-no-mobile]' in i])
-    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td width="9999"><strong style="font-size:20px;">PC-有图版</strong></td><td width="25%"><strong style="font-size:20px;">手机-有图版</strong></td><td width="25%"><strong style="font-size:20px;">PC-无图版</strong></td><td width="25%"><strong style="font-size:20px;">手机-无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
+    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td VALIGN=TOP width="9999"><strong style="font-size:20px;">PC-有图版</strong></td><td VALIGN=TOP width="25%"><strong style="font-size:20px;">手机-有图版</strong></td><td VALIGN=TOP width="25%"><strong style="font-size:20px;">PC-无图版</strong></td><td VALIGN=TOP width="25%"><strong style="font-size:20px;">手机-无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
         list1, list3, list2, list4)
     # print(str1)
     with open('old.html', 'w', encoding='utf-8') as f:
