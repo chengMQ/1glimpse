@@ -24,7 +24,7 @@ def pyld_kuaikeji():
         while 1:
             r = s.get('http://blog.mydrivers.com/getnewnewslistjson.aspx?pageid=%s' %
                       pagenum, headers={'Referer': 'http://news.mydrivers.com/'})
-            items = json.loads(re.sub('^NewsList\(|\)$', '', r.text))['Table']
+            items = json.loads(re.sub('^NewsList\(|\)$', '', re.sub(r'\\([^"])', '\\1',unescape(r.text))))['Table']
             # print(items)
             items = [i for i in items if today1 ==
                      (i['year'], i['month'], i['day'])]
