@@ -32,7 +32,7 @@ def list2html(table_html):
         n = i + 1
         if (n - 1) % num == 0:
             table1 += '<tr style="width:100%;">'
-        table1 += '<td VALIGN=TOP width="{width1}%"><a  href="{url}" target="_blank" style="font-size:18px;">{cover}<p><span style="color:#000000;"><strong>{title}</strong></span></p></a><span style="font-size:16px;">{sums}</span></td>'.format(
+        table1 += '<td valign="top" width="{width1}%"><a  href="{url}" target="_blank" style="font-size:18px;">{cover}<p><span style="color:#000000;"><strong>{title}</strong></span></p></a><span style="font-size:16px;">{sums}</span></td>'.format(
             cover=cover, url=url, title=title, sums=sums, width1=100 / num)
         if n % num == 0:
             table1 += '</tr>'
@@ -111,7 +111,7 @@ def refresh_old():
                      for i in list0 if '[cover-yes-mobile]' in i])
     list4 = ''.join([i.replace('[cover-no-mobile]blabla', '')
                      for i in list0 if '[cover-no-mobile]' in i])
-    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td VALIGN=TOP width="9999"><strong style="font-size:20px;">PC-有图版</strong></td><td VALIGN=TOP width="25%"><strong style="font-size:20px;">手机-有图版</strong></td><td VALIGN=TOP width="25%"><strong style="font-size:20px;">PC-无图版</strong></td><td VALIGN=TOP width="25%"><strong style="font-size:20px;">手机-无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
+    str1 = '<meta charset="utf-8"><!--网址列表--start--><div align="center"><table style="width:100%;" border="0" cellpadding="2" cellspacing="0" align="center"><tbody><tr><td valign="top" width="9999"><strong style="font-size:20px;">PC-有图版</strong></td><td valign="top" width="25%"><strong style="font-size:20px;">手机-有图版</strong></td><td valign="top" width="25%"><strong style="font-size:20px;">PC-无图版</strong></td><td valign="top" width="25%"><strong style="font-size:20px;">手机-无图版</strong></td></tr><tr><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td><td><ul>{}</ul></td></tr></tbody></table></div><!--网址列表--end-->'.format(
         list1, list3, list2, list4)
     # print(str1)
     with open('old.html', 'w', encoding='utf-8') as f:
