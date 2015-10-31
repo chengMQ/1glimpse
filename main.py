@@ -78,7 +78,7 @@ def refresh_index():
     def list2index(each_item):
         return '<li><a target="_blank" style="font-size:18px;" href="./pages/%s.html">%s</a></li>' % (each_item, each_item + 'blabla')
     list0 = [list2index(i.replace('.html', '')) for i in sorted(
-        os.listdir('.\\pages'), reverse=True) if i.endswith('html')]
+        os.listdir('./pages'), reverse=True) if i.endswith('html')]
     list1 = ''.join([i.replace('[cover-yes]blabla', '')
                      for i in list0 if '[cover-yes]' in i])
     list2 = ''.join([i.replace('[cover-no]blabla', '')
@@ -102,7 +102,7 @@ def refresh_old():
     def list2index(each_item):
         return '<li><a target="_blank" style="font-size:18px;" href="./pages/old/%s.html">%s</a></li>' % (each_item, each_item + 'blabla')
     list0 = [list2index(i.replace('.html', '')) for i in sorted(
-        os.listdir('.\\pages\\old'), reverse=True) if i.endswith('html')]
+        os.listdir('./pages/old'), reverse=True) if i.endswith('html')]
     list1 = ''.join([i.replace('[cover-yes]blabla', '')
                      for i in list0 if '[cover-yes]' in i])
     list2 = ''.join([i.replace('[cover-no]blabla', '')
