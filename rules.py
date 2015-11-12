@@ -10,15 +10,6 @@ thisday = datetime.datetime.today()
 
 
 
-
-
-
-
-
-
-
-
-
 def no_pyld_kuaikeji():
     '''<a style="color:#000000;" target="_blank" href="http://news.mydrivers.com/" title="快科技(原驱动之家)新闻中心，每日持续更新报道IT业界、互联网、市场资讯、驱动更新、游戏及产品资讯新闻，是最及时权威的产业新闻及硬件新闻报道平台，快科技(原驱动之家)--全球最新科技资讯专业发布平台。别的不说，确实够长了...">快科技-资讯中心</a>'''
     starttime = time.time()
