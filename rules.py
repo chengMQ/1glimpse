@@ -476,7 +476,6 @@ def pyld_tuicool():
     column = 6
     iscover = 1
     try:
-        s = requests.Session()
         today1 = thisday.strftime('%m-%d')
         # 这个if用来决定抓哪天的
         # if datetime.datetime.today().hour < 5:
@@ -485,7 +484,7 @@ def pyld_tuicool():
         pagenum = 0
         aa = []
         while 1:
-            r = s.get('http://www.tuicool.com/ah/0/%s?lang=1' % pagenum)
+            r = trequests.get('http://www.tuicool.com/ah/0/%s?lang=1' % pagenum)
             scode = r.text
             xpath = fromstring(scode).xpath
             dates = re.findall(
