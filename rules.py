@@ -5,10 +5,47 @@ from lxml.html import fromstring, tostring
 import datetime
 import time
 from html import unescape
-import json
-thisday = datetime.datetime.today()
 from torequests import tPool
-trequests=tPool(30)
+import json
+
+thisday = datetime.datetime.today()
+trequests = tPool(30)
+
+
+def pyld_juejin():
+    '''<a style="color:#000000;" target="_blank" href="http://gold.xitu.io/#/newest" title=" 挖掘最优质的互联网技术。干货还不错，很喜欢看">稀土掘金</a>'''
+    starttime = time.time()
+    my_title = pyld_juejin.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
+    column = 6
+    iscover = 1
+    try:
+        r = trequests.get('https://api.leancloud.cn/1.1/classes/Entry?order=-createdAt&limit=30', headers={
+            "X-avoscloud-Application-Id": "mhke0kuv33myn4t4ghuid4oq2hjj12li374hvcif202y5bm6", "x-avoscloud-request-sign": "14ee9964afc7d7c6cb090583e3c6ffa0,1447311991136"})
+        items = r.json()['results']
+        titles = [i['title'] for i in items]
+        covers = [i.get('screenshot', {}).get('url', '') for i in items]
+        urls = [i['url'] for i in items]
+        urlss = [i['originalUrl'] for i in items]
+        desc = [i['content'] for i in items]
+
+        def aa(x):
+            if len(x) > 40:
+                return '%s...' % (x[:40])
+            return x
+        desc = [aa(i) for i in desc]
+        desc = ['%s<p><a href="%s">查看原文</a></p>' %
+                (i) for i in zip(desc, urlss)]
+        aa = list(zip(covers, titles, urls, desc))
+
+    except Exception as e:
+        print('%s  %s' % (title_clean, e))
+        aa = [['error'] * 4]
+        iscover = 0
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
+    return [my_title, aa, column, iscover]
+
 
 def no_pyld_kuaikeji():
     '''<a style="color:#000000;" target="_blank" href="http://news.mydrivers.com/" title="快科技(原驱动之家)新闻中心，每日持续更新报道IT业界、互联网、市场资讯、驱动更新、游戏及产品资讯新闻，是最及时权威的产业新闻及硬件新闻报道平台，快科技(原驱动之家)--全球最新科技资讯专业发布平台。别的不说，确实够长了...">快科技-资讯中心</a>'''
@@ -25,7 +62,8 @@ def no_pyld_kuaikeji():
         while 1:
             r = s.get('http://blog.mydrivers.com/getnewnewslistjson.aspx?pageid=%s' %
                       pagenum, headers={'Referer': 'http://news.mydrivers.com/'})
-            items = json.loads(re.sub('^NewsList\(|\)$', '', re.sub(r'\\([^"])', '\\1',unescape(r.text))))['Table']
+            items = json.loads(re.sub('^NewsList\(|\)$', '', re.sub(
+                r'\\([^"])', '\\1', unescape(r.text))))['Table']
             # print(items)
             items = [i for i in items if today1 ==
                      (i['year'], i['month'], i['day'])]
@@ -102,7 +140,7 @@ def pyld_jiandan():
     iscover = 0
     try:
         r = trequests.get('http://jandan.net/', headers={'Host': 'jandan.net', 'Cookie': '1933948167=58',
-                                                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0'})
+                                                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0'})
         scode = r.content.decode('utf-8')
         items = fromstring(scode).xpath('//div[@class="post f list-post"]')
         items = [i for i in items if 'day' not in i.xpath(
@@ -250,7 +288,7 @@ def pyld_movie80s():
     iscover = 1
     try:
         r = trequests.get('http://www.80s.cn/movie/list/-2015---h', headers={
-                         'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'})
+            'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'})
         scode = r.text
         xpath = fromstring(scode).xpath
         titles = xpath('//ul[@class="me1 clearfix"]/li/a/@title')
@@ -279,7 +317,7 @@ def pyld_youku():
     iscover = 1
     try:
         r = trequests.get('http://www.youku.com/?screen=phone', headers={
-                         'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'})
+            'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'})
         scode = r.content.decode('utf-8')
         xpath = fromstring(scode).xpath
         titles = xpath(
@@ -484,7 +522,8 @@ def pyld_tuicool():
         pagenum = 0
         aa = []
         while 1:
-            r = trequests.get('http://www.tuicool.com/ah/0/%s?lang=1' % pagenum)
+            r = trequests.get(
+                'http://www.tuicool.com/ah/0/%s?lang=1' % pagenum)
             scode = r.text
             xpath = fromstring(scode).xpath
             dates = re.findall(
