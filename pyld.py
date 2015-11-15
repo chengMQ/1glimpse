@@ -17,23 +17,27 @@ def pyld_juejin():
     starttime = time.time()
     my_title = pyld_juejin.__doc__
     title_clean = re.sub('<.*?>', '', my_title)
+    todaystr = thisday.strftime('%Y-%m-%d')
     column = 6
     iscover = 1
     try:
         r = trequests.get('https://api.leancloud.cn/1.1/classes/Entry?order=-createdAt&limit=30', headers={
             "X-avoscloud-Application-Id": "mhke0kuv33myn4t4ghuid4oq2hjj12li374hvcif202y5bm6", "x-avoscloud-request-sign": "14ee9964afc7d7c6cb090583e3c6ffa0,1447311991136"})
         items = r.json()['results']
+        items = [i for i in items if i.get('createdAt','').startswith(todaystr)]
         titles = [i['title'] for i in items]
-        covers = [i.get('screenshot',{}).get('url','') for i in items]
+        covers = [i.get('screenshot', {}).get('url', '') for i in items]
         urls = [i['url'] for i in items]
-        urlss= [i['originalUrl'] for i in items]
+        urlss = [i['originalUrl'] for i in items]
         desc = [i['content'] for i in items]
+
         def aa(x):
-            if len(x)>40:
-                return '%s...'%(x[:40])
+            if len(x) > 40:
+                return '%s...' % (x[:40])
             return x
         desc = [aa(i) for i in desc]
-        desc=['%s<p><a href="%s">查看原文</a></p>'%(i) for i in zip(desc,urlss)]
+        desc = ['%s<p><a href="%s">查看原文</a></p>' %
+                (i) for i in zip(desc, urlss)]
         aa = list(zip(covers, titles, urls, desc))
 
     except Exception as e:
