@@ -333,7 +333,7 @@ def pyld_chinaz():
     return [my_title, aa, column, iscover]
 
 
-def pyld_gankio():
+def no_pyld_gankio():
     '''<a style="color:#000000;" target="_blank" href="http://gank.io/" title="每日分享妹子图和技术干货，还有供大家中午休息的休闲视频。妹子质量大约在70分以上，技术偏向于移动开发或前端，视频是真好东西，和“开眼”的逼格不一样。">干货集中营</a>'''
     starttime = time.time()
     my_title = pyld_gankio.__doc__
