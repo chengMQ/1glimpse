@@ -7,8 +7,8 @@ import time
 from html import unescape
 import json
 thisday = datetime.datetime.today()
-
-
+from torequests import tPool
+trequests=tPool(30)
 
 def no_pyld_kuaikeji():
     '''<a style="color:#000000;" target="_blank" href="http://news.mydrivers.com/" title="快科技(原驱动之家)新闻中心，每日持续更新报道IT业界、互联网、市场资讯、驱动更新、游戏及产品资讯新闻，是最及时权威的产业新闻及硬件新闻报道平台，快科技(原驱动之家)--全球最新科技资讯专业发布平台。别的不说，确实够长了...">快科技-资讯中心</a>'''
@@ -71,7 +71,7 @@ def pyld_pythondaily():
             theday = (
                 thisday - datetime.timedelta(days=day1)).strftime("%Y-%m-%d")
             url = 'http://forum.memect.com/blog/thread/py-%s/' % theday
-            r = requests.get(url)
+            r = trequests.get(url)
             if r.status_code == 404:
                 continue
             items = [tostring(i, encoding='utf-8').decode('utf-8')
@@ -101,7 +101,7 @@ def pyld_jiandan():
     column = 6
     iscover = 0
     try:
-        r = requests.get('http://jandan.net/', headers={'Host': 'jandan.net', 'Cookie': '1933948167=58',
+        r = trequests.get('http://jandan.net/', headers={'Host': 'jandan.net', 'Cookie': '1933948167=58',
                                                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0'})
         scode = r.content.decode('utf-8')
         items = fromstring(scode).xpath('//div[@class="post f list-post"]')
@@ -132,7 +132,7 @@ def pyld_36kr_next():
     column = 10
     iscover = 0
     try:
-        r = requests.get('http://www.next.36kr.com/posts')
+        r = trequests.get('http://www.next.36kr.com/posts')
         xpath = fromstring(r.text).xpath
         items = xpath('//div[@id="content"]/section[1]/ul/li')
         urls = ['http://www.next.36kr.com' +
@@ -161,7 +161,7 @@ def pyld_kaiyan():
     column = 6
     iscover = 1
     try:
-        r = requests.get('http://baobab.wandoujia.com/api/v1/feed')
+        r = trequests.get('http://baobab.wandoujia.com/api/v1/feed')
         items = r.json()['dailyList'][0]['videoList']
         titles = [i['title'] for i in items]
         covers = [i['coverForFeed'] for i in items]
@@ -187,7 +187,7 @@ def pyld_jiangzhi():
     column = 5
     iscover = 1
     try:
-        r = requests.get(
+        r = trequests.get(
             'http://www.jiangzhi.la/v1/webservice/query/mryz/history')
         items = r.json()[:column]
         titles = ['第%s期  %s' % (i['seqNum'], i['topicName']) for i in items]
@@ -214,12 +214,12 @@ def pyld_36kr():
     column = 6
     iscover = 1
     try:
-        r = requests.get('http://36kr.com/')
+        r = trequests.get('http://36kr.com/')
         xpath1 = fromstring(r.text).xpath
         items = xpath1('//article')
         newurl = 'http://36kr.com' + \
             xpath1('//a[@id="info_flows_next_link"]/@href')[0]
-        r = requests.get(newurl)
+        r = trequests.get(newurl)
         items = items + fromstring(r.text).xpath('//article')
         items = [i for i in items if i.xpath('./div/div/span/time/@datetime')]
         urls = ['http://36kr.com' + i.xpath('./a/@href')[0] for i in items]
@@ -249,7 +249,7 @@ def pyld_movie80s():
     column = 11
     iscover = 1
     try:
-        r = requests.get('http://www.80s.cn/movie/list/-2015---h', headers={
+        r = trequests.get('http://www.80s.cn/movie/list/-2015---h', headers={
                          'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'})
         scode = r.text
         xpath = fromstring(scode).xpath
@@ -278,7 +278,7 @@ def pyld_youku():
 
     iscover = 1
     try:
-        r = requests.get('http://www.youku.com/?screen=phone', headers={
+        r = trequests.get('http://www.youku.com/?screen=phone', headers={
                          'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'})
         scode = r.content.decode('utf-8')
         xpath = fromstring(scode).xpath
@@ -311,7 +311,7 @@ def pyld_chinaz():
     column = 7
     iscover = 1
     try:
-        r = requests.get('http://www.chinaz.com/')
+        r = trequests.get('http://www.chinaz.com/')
         items = fromstring(r.content.decode('utf8', 'ignore')).xpath(
             '//div[@class="topicsImgTxtBar aTabMain"]/ul[1]/li')
 
@@ -341,7 +341,7 @@ def pyld_gankio():
     column = 1  # 根据内容数量来划分
     iscover = 0
     try:
-        r = requests.get('http://gank.io/')
+        r = trequests.get('http://gank.io/')
         scode = re.findall('<div class="outlink">(.*?)/div>', r.text)[0]
         # print(scode)
         items = ['<a href="{}"><img src="{}" width=100% /></a>'.format(i, i) for i in re.findall(
@@ -377,7 +377,7 @@ def pyld_huxiu():
     column = 6
     iscover = 1
     try:
-        r = requests.get('http://m.huxiu.com/focus/')
+        r = trequests.get('http://m.huxiu.com/focus/')
         scode = r.content.decode('utf-8')
         items = fromstring(scode).xpath(
             '//ul[@class="ul-list focus-list"]/li[not(@class)]')
@@ -414,7 +414,7 @@ def pyld_appinn():
     column = 7
     iscover = 1
     try:
-        r = requests.get('http://feeds.appinn.com/appinns/', timeout=10)
+        r = trequests.get('http://feeds.appinn.com/appinns/', timeout=10)
         ss = unescape(r.text)
         xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
         titles = xpath('//item/title/text()')
@@ -444,7 +444,7 @@ def pyld_iplaysoft():
     column = 5
     iscover = 0
     try:
-        r = requests.get('http://feed.iplaysoft.com/')
+        r = trequests.get('http://feed.iplaysoft.com/')
         ss = unescape(r.text)
         xpath = fromstring(re.sub('<.*?>', '', ss, 1)).xpath
         titles = [i.replace('[来自异次元]', '').strip()
