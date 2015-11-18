@@ -12,6 +12,9 @@ thisday = datetime.datetime.today()
 trequests = tPool(30)
 
 
+
+
+
 def pyld_juejin():
     '''<a style="color:#000000;" target="_blank" href="http://gold.xitu.io/#/newest" title=" 挖掘最优质的互联网技术。干货还不错，很喜欢看">稀土掘金</a>'''
     starttime = time.time()
