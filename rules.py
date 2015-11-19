@@ -21,13 +21,12 @@ def pyld_toutiao():
     column = 6
     iscover = 0
     try:
-        r = trequests.get('http://toutiao.io/prev/%s' % todaystr, headers={
-                          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2552.0 Safari/537.36'})
-        xpath = fromstring(r.text).xpath
+        r = trequests.get('http://toutiao.io/prev/%s' % todaystr,headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2552.0 Safari/537.36'})
+        xpath=fromstring(r.text).xpath
         titles = xpath('//h3[@class="title"]/a/text()')
-        covers = [''] * len(titles)
+        covers = ['']*len(titles)
         urls = xpath('//h3[@class="title"]/a/@href')
-        desc = [''] * len(titles)
+        desc = [i.strip() for i in xpath('//div[@class="meta"]/text()')]
         aa = list(zip(covers, titles, urls, desc))
 
     except Exception as e:
@@ -37,6 +36,7 @@ def pyld_toutiao():
     runtime1 = round(time.time() - starttime, 3)
     print(title_clean, 'finished in %s seconds' % runtime1)
     return [my_title, aa, column, iscover]
+
 
 
 def pyld_juejin():

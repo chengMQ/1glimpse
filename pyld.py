@@ -26,7 +26,7 @@ def pyld_toutiao():
         titles = xpath('//h3[@class="title"]/a/text()')
         covers = ['']*len(titles)
         urls = xpath('//h3[@class="title"]/a/@href')
-        desc = ['']*len(titles)
+        desc = [i.strip() for i in xpath('//div[@class="meta"]/text()')]
         aa = list(zip(covers, titles, urls, desc))
 
     except Exception as e:
