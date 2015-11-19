@@ -9,10 +9,34 @@ from torequests import tPool
 import json
 
 thisday = datetime.datetime.today()
-trequests = tPool(30)
+trequests = tPool(50)
 
 
+def pyld_toutiao():
+    '''<a style="color:#000000;" target="_blank" href="http://toutiao.io/" title="开发者头条是一个基于程序员阅读和分享的社交平台。在开发者头条，程序员可以分享感兴趣的内容、订阅感兴趣的主题和关注感兴趣的人。收录它只因为它废话非常少。。。">开发者头条</a>'''
+    starttime = time.time()
+    my_title = pyld_toutiao.__doc__
+    title_clean = re.sub('<.*?>', '', my_title)
+    todaystr = thisday.strftime('%Y-%m-%d')
+    column = 6
+    iscover = 0
+    try:
+        r = trequests.get('http://toutiao.io/prev/%s' % todaystr, headers={
+                          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2552.0 Safari/537.36'})
+        xpath = fromstring(r.text).xpath
+        titles = xpath('//h3[@class="title"]/a/text()')
+        covers = [''] * len(titles)
+        urls = xpath('//h3[@class="title"]/a/@href')
+        desc = [''] * len(titles)
+        aa = list(zip(covers, titles, urls, desc))
 
+    except Exception as e:
+        print('%s  %s' % (title_clean, e))
+        aa = [['error'] * 4]
+        iscover = 0
+    runtime1 = round(time.time() - starttime, 3)
+    print(title_clean, 'finished in %s seconds' % runtime1)
+    return [my_title, aa, column, iscover]
 
 
 def pyld_juejin():
@@ -27,7 +51,8 @@ def pyld_juejin():
         r = trequests.get('https://api.leancloud.cn/1.1/classes/Entry?order=-createdAt&limit=30', headers={
             "X-avoscloud-Application-Id": "mhke0kuv33myn4t4ghuid4oq2hjj12li374hvcif202y5bm6", "x-avoscloud-request-sign": "14ee9964afc7d7c6cb090583e3c6ffa0,1447311991136"})
         items = r.json()['results']
-        items = [i for i in items if i.get('createdAt','').startswith(todaystr)]
+        items = [i for i in items if i.get(
+            'createdAt', '').startswith(todaystr)]
         titles = [i['title'] for i in items]
         covers = [i.get('screenshot', {}).get('url', '') for i in items]
         urls = [i['url'] for i in items]
