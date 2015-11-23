@@ -123,7 +123,7 @@ if __name__ == '__main__':
     func_list = sorted(func_names.keys())
     choose_func = [func_names[i] for i in func_list]
     # pp = Pool(20)
-    ss = map(lambda x: x(), choose_func)
+    ss = list(map(lambda x: x(), choose_func))
     # pp.close()
     # pp.join()
     titles = ' | '.join([i[0] for i in ss])
