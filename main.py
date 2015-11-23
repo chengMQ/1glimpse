@@ -122,10 +122,11 @@ if __name__ == '__main__':
         [i for i in getmembers(rules) if i[0].startswith('pyld')])
     func_list = sorted(func_names.keys())
     choose_func = [func_names[i] for i in func_list]
-    pp = Pool(40)
-    ss = pp.map(lambda x: x(), choose_func)
-    pp.close()
-    pp.join()
+    from torequests import pPool
+    pp = pPool(40)
+    ss = pp.map1(lambda x: x(), choose_func)
+    # pp.close()
+    # pp.join()
     titles = ' | '.join([i[0] for i in ss])
     titles2 = ' | '.join([re.sub('target="_blank" href=".*?"',
                                  'href="#%s"' % re.sub('<.*?>', '', i[0]), i[0]) for i in ss])
