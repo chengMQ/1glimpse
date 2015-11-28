@@ -79,7 +79,7 @@ def pyld_toutiao():
         titles = xpath('//h3[@class="title"]/a/text()')
         covers = ['']*len(titles)
         urls = xpath('//h3[@class="title"]/a/@href')
-        desc = ['<hr>']*len(titles())
+        desc = ['<hr>']*len(titles)
         aa = list(zip(covers, titles, urls, desc))
 
     except Exception as e:
