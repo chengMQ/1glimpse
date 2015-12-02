@@ -52,7 +52,7 @@ def withpics_to_file(ss):
         f.write(scode)
     # for mobile
     with open('./pages/%s[cover-yes-mobile].html' % this_day, 'w', encoding='utf-8') as f:
-        scode = re.sub('<td.*?>|</td>', '', scode).replace('font-size:16px;',
+        scode = re.sub('<td.*?>|</td>', '<hr>', scode).replace('font-size:16px;',
                                                            'font-size:46px;').replace('font-size:18px;', 'font-size:58px;')
         f.write(scode)
 
