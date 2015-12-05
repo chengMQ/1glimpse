@@ -47,7 +47,7 @@ def withpics_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = r'''<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 {}</title><script type="text/javascript">document.write('<style>body{{background-image:url("./bgs/bg' + Math.round( Math.random() * 14 ) + '.jpg");background-size: 100% 100%;}}</style>');</script><style>A {{text-decoration: NONE}} </style><style>div{{word-break:normal; width:auto; display:block; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden ;}} </style><p id="headline" style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="right">—— 更新时间：{} </div><hr>'''.format(this_time, titles2, this_time) + '<hr>'.join(
+        scode = r'''<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 {}</title><script type="text/javascript">document.write('<style>body{{background-image:url("./bgs/bg' + Math.round( Math.random() * 14 ) + '.jpg");background-size: 100% 100%;}}</style>');</script><style>A {{text-decoration: NONE}} </style><style>span{{word-break:normal; width:auto; display:block; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden ;}} </style><p id="headline" style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="right">—— 更新时间：{} </div><hr>'''.format(this_time, titles2, this_time) + '<hr>'.join(
             ss) + '<div align="center"><a style="font-size:18px;" href="../index.html">回到首页</a></div>'
         f.write(scode)
     # for mobile
