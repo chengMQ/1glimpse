@@ -47,12 +47,12 @@ def withpics_to_file(ss):
     ss = [list2html(i) for i in ss]
     with open('./pages/%s[cover-yes].html' % this_day, 'w', encoding='utf-8') as f:
 
-        scode = r'''<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 {}</title><script type="text/javascript">document.write('<style>body{{background-image:url("./bgs/bg' + Math.round( Math.random() * 14 ) + '.jpg");background-size: 100% 100%;}}</style>');</script><style> td{{background-image: url("");background-size: 100% 100%;}} </style><style>A {{text-decoration: NONE}} </style><p id="headline" style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="right">—— 更新时间：{} </div><hr>'''.format(this_time, titles2, this_time) + '<hr>'.join(
+        scode = r'''<meta charset="utf-8"><meta name="viewport" content="target-densitydpi=device-dpi" /><title>一瞥日报 {}</title><script type="text/javascript">document.write('<style>body{{background-image:url("./bgs/bg' + Math.round( Math.random() * 14 ) + '.jpg");background-size: 100% 100%;}}</style>');</script><style>A {{text-decoration: NONE}} </style><p id="headline" style="font-size:18px;"><strong>当前订阅列表：</strong>{}</p><div align="right">—— 更新时间：{} </div><hr>'''.format(this_time, titles2, this_time) + '<hr>'.join(
             ss) + '<div align="center"><a style="font-size:18px;" href="../index.html">回到首页</a></div>'
         f.write(scode)
     # for mobile
     with open('./pages/%s[cover-yes-mobile].html' % this_day, 'w', encoding='utf-8') as f:
-        scode = re.sub('<td.*?>|</td>', '', scode).replace('font-size:16px;',
+        scode = re.sub('<td.*?>|</td>|<hr>', '', scode).replace('font-size:16px;',
                                                            'font-size:46px;').replace('font-size:18px;', 'font-size:58px;')#.replace('<fengebiaoji><fengebiaoji>', '<hr>')
         #scode=re.sub('(<hr>){2,}', '', scode)
         f.write(scode)
