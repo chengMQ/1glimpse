@@ -1,5 +1,6 @@
 # 1glimpse
-http://clericpy.github.io/
+
+http://clericpy.github.io/1glimpse/
 
 ---
 
